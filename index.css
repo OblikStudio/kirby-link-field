@@ -1,0 +1,8 @@
+.k-link-field .k-button-group .k-button-text {
+  text-transform: capitalize; }
+
+.k-link-field .k-field.hide {
+  display: none; }
+
+.k-link-field .link-types .k-field-header {
+  display: none; }
