@@ -30,6 +30,7 @@ panel.plugin("medienbaecker/link", {
               link: '',
               type: option
             });
+            this.$refs.input.focus();
           }
         },
         template: `
@@ -45,7 +46,7 @@ panel.plugin("medienbaecker/link", {
                 </k-button>
               </k-button-group>
 
-              <k-input v-if="type" :id="_uid" v-model="link" type="text" @input="input"/>
+              <k-input ref="input" v-if="type" :id="_uid" v-model="link" type="text" @input="input"/>
 
             </k-input>
 
