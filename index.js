@@ -30,23 +30,31 @@ panel.plugin("medienbaecker/link", {
               link: '',
               type: option
             });
-            this.$refs.input.focus();
+            this.$nextTick(() => {
+              this.$refs.input.focus();
+            });
+          },
+          close() {
+            this.$emit("input", {
+              link: '',
+              type: false
+            });
           }
         },
         template: `
           <k-field v-bind="$props" class="k-link-field">
 
-            <k-button v-if="type" @click="select()" slot="options" icon="cancel">{{ $t('change') }}</k-button>
+            <k-button v-show="type" @click="select()" slot="options" icon="cancel">{{ $t('change') }}</k-button>
 
             <k-input theme="field" :icon="type">
 
-              <k-button-group v-if="!type">
+              <k-button-group v-show="!type">
                 <k-button @click="select(option)" v-for="option in options" :icon="option">
                   {{ $t(option) }}
                 </k-button>
               </k-button-group>
 
-              <k-input ref="input" v-if="type" :id="_uid" v-model="link" type="text" @input="input"/>
+              <k-input ref="input" v-show="type" :id="_uid" v-model="link" type="text" @input="input" @keyup.esc="close"/>
 
             </k-input>
 
