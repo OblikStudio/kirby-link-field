@@ -9,8 +9,12 @@ Kirby::plugin('medienbaecker/link', [
                 },
                 'options' => function($options = ["url", "page", "email"]) {
                     return $options;
-                },
+                }
             ]
         ]
-    ]
+    ],
+    'translations' => array(
+        'en' => require_once __DIR__ . '/languages/en.php',
+        'de' => require_once __DIR__ . '/languages/de.php'
+    ),
 ]);

@@ -1,15 +1,20 @@
 .k-link-field {
     .k-button-group {
-        .k-button-text {
-            text-transform: capitalize;
-        }
-    }
-    .k-field.hide {
-        display: none;
-    }
-    .link-types {
-        .k-field-header {
-            display: none;
+        margin: 0;
+        display: flex;
+        flex-direction: row;
+        align-items: stretch;
+        .k-button {
+            line-height: 1.25rem;
+            padding: .5rem;
+            border-right: 1px solid #ccc;
+            flex: 1;
+            &:last-child {
+                border-right: 0;
+            }
+            .k-button-text {
+                line-height: 1rem;
+            }
         }
     }
 }

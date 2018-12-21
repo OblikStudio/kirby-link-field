@@ -8,60 +8,46 @@ panel.plugin("medienbaecker/link", {
         },
         data: function() {
           return {
-            fields: {
-              url: {
-                label: "Externer Link",
-                type: "url",
-                hide: true
-              },
-              page: {
-                label: "Seite",
-                type: "text",
-                hide: true
-              },
-              email: {
-                label: "E-Mail",
-                type: "email",
-                hide: true
-              }
-            }
+            type: this.value.type,
+            link: this.value.link
+          }
+        },
+        watch: {
+          value(value) {
+            this.type = value.type,
+            this.link = value.link;
           }
         },
         methods: {
-          input(data) {
-            this.$emit("input", data);
+          input() {
+            this.$emit("input", {
+              link: this.link,
+              type: this.type
+            });
           },
-          select(type) {
-            for(var field in this.fields) {
-              this.fields[field].hide = true;
-            }
-            this.fields[type].hide = false;
+          select(option = false) {
+            this.$emit("input", {
+              link: '',
+              type: option
+            });
           }
         },
         template: `
           <k-field v-bind="$props" class="k-link-field">
 
-            <k-button-group>
-              <k-button @click="select(option)" v-for="option in options" :icon="option">{{ option }}</k-button>
-            </k-button-group>
+            <k-button v-if="type" @click="select()" slot="options" icon="cancel">{{ $t('change') }}</k-button>
 
-            <div class="link-types" v-if="fields">
-              <component
-                v-for="(field, fieldName) in fields"
-                :is="'k-' + field.type + '-field'"
-                label=""
-                :name="fieldName"
-                :class="{ hide: field.hide }"
-              >
-                <k-button
-                  slot="icon"
-                  class="k-input-icon-button"
-                  link="asd"
-                  tabindex="-1"
-                  target="_blank"
-                />
-              </component>
-            </div>
+            <k-input theme="field" :icon="type">
+
+              <k-button-group v-if="!type">
+                <k-button @click="select(option)" v-for="option in options" :icon="option">
+                  {{ $t(option) }}
+                </k-button>
+              </k-button-group>
+
+              <k-input v-if="type" :id="_uid" v-model="link" type="text" @input="input"/>
+
+            </k-input>
 
           </k-field>
         `
