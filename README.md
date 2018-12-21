@@ -5,9 +5,24 @@ This is a link field for Kirby 3. You can conveniently insert external, email or
 ### Blueprint:
 ```yaml
 fields:
-    link:
-        label:  Link
+    button:
+        label:  Button
         type:   link
+```
+
+### Content file:
+```
+Button: 
+
+link: https://www.medienbaecker.com
+type: url
+```
+
+```
+Button: 
+
+link: mail@medienbaecker.com
+type: email
 ```
 
 ## Installation
