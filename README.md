@@ -9,9 +9,9 @@ This is a link field for Kirby 3. You can conveniently insert external, email or
 ### Blueprint
 ```yaml
 fields:
-    link:
-        label:  Link
-        type:   link
+  button:
+    label:  Button
+    type:   link
 ```
 
 ### Content file
