@@ -2,15 +2,19 @@
 
 This is a link field for Kirby 3. You can conveniently insert external, email or page links.
 
-### Blueprint:
+### Preview
+
+![Preview](https://user-images.githubusercontent.com/7975568/50344611-00b3e400-052c-11e9-9e64-1e60f5a6098f.gif)
+
+### Blueprint
 ```yaml
 fields:
-    button:
-        label:  Button
+    link:
+        label:  Link
         type:   link
 ```
 
-### Content file:
+### Content file
 ```
 Button: 
 
