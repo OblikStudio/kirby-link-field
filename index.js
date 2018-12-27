@@ -44,13 +44,13 @@ panel.plugin("medienbaecker/link", {
         template: `
           <k-field v-bind="$props" class="k-link-field">
 
-            <k-button v-show="type" @click="select()" slot="options" icon="cancel">{{ $t('change') }}</k-button>
+            <k-button v-show="type" @click="select()" slot="options" icon="cancel">{{ $t('link-field.change') }}</k-button>
 
             <k-input theme="field" :icon="type">
 
               <k-button-group v-show="!type">
                 <k-button @click="select(option)" v-for="option in options" :icon="option">
-                  {{ $t(option) }}
+                  {{ $t('link-field.' + option) }}
                 </k-button>
               </k-button-group>
 

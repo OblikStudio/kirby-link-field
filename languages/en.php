@@ -1,7 +1,7 @@
 <?php
 return array(
-	'url'   => 'Enter URL',
-	'page' => 'Choose Page',
-	'email' => 'Enter email address',
-	'change' => 'Change link type'
+	'link-field.url'   => 'Enter URL',
+	'link-field.page' => 'Choose page',
+	'link-field.email' => 'Enter email address',
+	'link-field.change' => 'Change link type'
 );
