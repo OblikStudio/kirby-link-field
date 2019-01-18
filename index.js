@@ -26,6 +26,19 @@ panel.plugin("medienbaecker/link", {
               type: this.type
             });
           },
+          setType(option = false) {
+            var link = '';
+            if(typeof(option) === "object") {
+              link = option[0].link;
+            }
+            this.$emit("input", {
+              link: link,
+              type: option
+            });
+            this.$nextTick(() => {
+              this.$refs.input.focus();
+            });
+          },
           select(option = false) {
             if(option == "page") {
               this.$refs['pagesDialog'].open({
@@ -35,13 +48,7 @@ panel.plugin("medienbaecker/link", {
               });
             }
             else {
-              this.$emit("input", {
-                link: '',
-                type: option
-              });
-              this.$nextTick(() => {
-                this.$refs.input.focus();
-              });
+              this.setType(option);
             }
           },
           close() {
@@ -68,7 +75,7 @@ panel.plugin("medienbaecker/link", {
 
             </k-input>
 
-            <k-pages-dialog ref="pagesDialog"/>
+            <k-pages-dialog ref="pagesDialog" @submit="select"/>
 
           </k-field>
         `

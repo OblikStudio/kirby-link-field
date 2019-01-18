@@ -43,7 +43,7 @@ Kirby::plugin('medienbaecker/link', [
                             $pages = $parent->children();
                             $model = [
                                 'id'    => $parent->id() == '' ? null : $parent->id(),
-                                'title' => $parent->title()->value()
+                                'title' => t('link-field.page')
                             ];
                             
                             $children = [];
