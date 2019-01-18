@@ -27,7 +27,6 @@ panel.plugin("medienbaecker/link", {
             });
           },
           setType(option = false) {
-            console.log(option);
             var link = '';
             if(typeof(option) === "object") {
               link = option[0].id;
