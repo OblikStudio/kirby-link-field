@@ -4,7 +4,8 @@ panel.plugin("medienbaecker/link", {
         props: {
           label: String,
           value: Object,
-          options: Array
+          options: Array,
+          endpoints: Object
         },
         data: function() {
           return {
@@ -26,13 +27,18 @@ panel.plugin("medienbaecker/link", {
             });
           },
           select(option = false) {
-            this.$emit("input", {
-              link: '',
-              type: option
-            });
-            this.$nextTick(() => {
-              this.$refs.input.focus();
-            });
+            if(option == "page") {
+              this.$refs['pagesDialog'].open();
+            }
+            else {
+              this.$emit("input", {
+                link: '',
+                type: option
+              });
+              this.$nextTick(() => {
+                this.$refs.input.focus();
+              });
+            }
           },
           close() {
             this.$emit("input", {
@@ -57,6 +63,8 @@ panel.plugin("medienbaecker/link", {
               <k-input ref="input" v-show="type" :id="_uid" v-model="link" type="text" @input="input" @keyup.esc="close"/>
 
             </k-input>
+
+            <k-pages-dialog ref="pagesDialog"/>
 
           </k-field>
         `
