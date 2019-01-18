@@ -28,7 +28,11 @@ panel.plugin("medienbaecker/link", {
           },
           select(option = false) {
             if(option == "page") {
-              this.$refs['pagesDialog'].open();
+              this.$refs['pagesDialog'].open({
+                endpoint: this.endpoints.field + '/get-pages',
+                multiple: false,
+                selected: []
+              });
             }
             else {
               this.$emit("input", {
