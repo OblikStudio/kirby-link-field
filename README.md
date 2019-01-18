@@ -14,6 +14,18 @@ fields:
     type:   link
 ```
 
+You can optionally define the possible link types (`url`, `page` and `email`) and their order like that:
+
+```yaml
+fields:
+  button:
+    label:  Button
+    type:   link
+    options:
+      - page
+      - url
+```
+
 ### Content file
 ```
 Button: 
