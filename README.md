@@ -4,7 +4,7 @@ This is a link field for Kirby 3. You can conveniently insert external, email or
 
 ### Preview
 
-![Preview](https://user-images.githubusercontent.com/7975568/50344886-4a50fe80-052d-11e9-9d04-386498f6e763.gif)
+![Preview](https://user-images.githubusercontent.com/7975568/51412878-59978c00-1b6d-11e9-94a0-69790e8f1b84.gif)
 
 ### Blueprint
 ```yaml
