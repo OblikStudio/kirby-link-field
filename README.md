@@ -27,19 +27,44 @@ fields:
 ```
 
 ### Content file
-```
+```yml
 Button: 
 
 link: https://www.medienbaecker.com
 type: url
 ```
 
-```
+```yml
 Button: 
 
 link: mail@medienbaecker.com
 type: email
 ```
+
+### Template example
+```php
+<?php
+  $buttonType = $page->button()->yaml()["type"];
+  $buttonLink = $page->button()->yaml()["link"];
+?>
+
+<?php if($buttonType == "email"): ?>
+
+  <a href="mailto:<?= $buttonLink ?>">Write an email</a>
+
+<?php elseif($buttonType == "page"): ?>
+
+  <?php if($buttonPage = page($buttonLink)): ?>
+    <a href="<?= $buttonPage->url() ?>"><?= $buttonPage->title() ?></a>
+  <?php endif ?>
+
+<?php else: ?>
+
+  <a href="<?= $buttonLink ?>"><?= $buttonLink ?></a>
+
+<?php endif ?>
+```
+
 
 ## Installation
 
