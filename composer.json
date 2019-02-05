@@ -1,0 +1,12 @@
+{
+  "name": "medienbaecker/link",
+  "description": "Kirby Link Field",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Thomas Günther",
+          "email": "mail@medienbaecker.com",
+          "homepage": "https://www.medienbaecker.com"
+      }
+  ]
+}
