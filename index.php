@@ -66,4 +66,21 @@ Kirby::plugin('medienbaecker/link', [
         'en' => require_once __DIR__ . '/languages/en.php',
         'de' => require_once __DIR__ . '/languages/de.php'
     ],
+    'fieldMethods' => [
+        'toHref' => function ($field) {
+            if($field->isNotEmpty()) {
+                $type = $field->yaml()["type"];
+                $link = $field->yaml()["link"];
+                $href = "";
+                if($type == "email"){
+                    $href .= "mailto:";
+                }
+                if($type == "page" AND $linkPage = page($link)) {
+                    $link = $linkPage->url();
+                }
+                $href .= $link;
+                return $href;
+            }
+        }
+    ]
 ]);
