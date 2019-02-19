@@ -27,12 +27,27 @@ fields:
 ```
 
 ### Content file
+
+An external URL:
+
 ```yml
 Button: 
 
 link: https://www.medienbaecker.com
 type: url
 ```
+
+A page link:
+
+```yml
+Button: 
+
+link: products/lorem-ipsum
+type: page
+
+```
+
+An email address:
 
 ```yml
 Button: 
@@ -42,29 +57,15 @@ type: email
 ```
 
 ### Template example
+
+There's a convenient `->toHref()` method you can use to automatically return the correct href:
+
 ```php
-<?php
-  $buttonType = $page->button()->yaml()["type"];
-  $buttonLink = $page->button()->yaml()["link"];
-?>
-
-<?php if($buttonType == "email"): ?>
-
-  <a href="mailto:<?= $buttonLink ?>">Write an email</a>
-
-<?php elseif($buttonType == "page"): ?>
-
-  <?php if($buttonPage = page($buttonLink)): ?>
-    <a href="<?= $buttonPage->url() ?>"><?= $buttonPage->title() ?></a>
-  <?php endif ?>
-
-<?php else: ?>
-
-  <a href="<?= $buttonLink ?>"><?= $buttonLink ?></a>
-
-<?php endif ?>
+<?= $page->button()->toHref() ?>
 ```
 
+Email address: `mailto:mail@medienbaecker.com`
+Page link: `https://www.example.com/products/lorem-ipsum`
 
 ## Installation
 
