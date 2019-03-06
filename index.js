@@ -8,9 +8,17 @@ panel.plugin("medienbaecker/link", {
           endpoints: Object
         },
         data: function() {
-          return {
-            type: this.value.type,
-            link: this.value.link
+          if(this.value) {
+            return {
+              type: this.value.type,
+              link: this.value.link
+            }
+          }
+          else {
+            return {
+              type: "",
+              link: ""
+            }
           }
         },
         watch: {
