@@ -1,12 +1,16 @@
 {
   "name": "medienbaecker/kirby-link-field",
   "description": "Kirby Link Field",
+  "type": "kirby-plugin",
   "license": "MIT",
   "authors": [
-      {
-          "name": "Thomas Günther",
-          "email": "mail@medienbaecker.com",
-          "homepage": "https://www.medienbaecker.com"
-      }
-  ]
+    {
+      "name": "Thomas Günther",
+      "email": "mail@medienbaecker.com",
+      "homepage": "https://www.medienbaecker.com"
+    }
+  ],
+  "require": {
+    "getkirby/composer-installer": "^1.1"
+  }
 }
