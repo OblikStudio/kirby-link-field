@@ -86,7 +86,7 @@ Kirby::plugin('medienbaecker/link', [
                             }
                             if($type == "files") {
                                 $field = $this->field();
-                                $files = $field->model()->query("page.files()", 'Kirby\Cms\Files');
+                                $files = $field->model()->query("page.files", 'Kirby\Cms\Files');
                                 $data  = [];
                                 foreach ($files as $index => $file) {
                                     $data[] = $field->fileResponse($file);
