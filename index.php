@@ -63,7 +63,7 @@ Kirby::plugin('medienbaecker/link', [
                                 }
                                 $pages = $parent->children();
                                 $model = [
-                                    'id'    => $parent->id() == '' ? null : $parent->id(),
+                                    'id'    => null,
                                     'title' => t('link-field.page')
                                 ];
                                 $children = [];
@@ -79,12 +79,19 @@ Kirby::plugin('medienbaecker/link', [
                             }
                             if($type == "files") {
                                 $field = $this->field();
+                                $model = [
+                                    'id'    => null,
+                                    'title' => t('link-field.page')
+                                ];
                                 $files = $field->model()->query("page.files", 'Kirby\Cms\Files');
                                 $data  = [];
                                 foreach ($files as $index => $file) {
                                     $data[] = $field->fileResponse($file);
                                 }
-                                return $data;
+                                return [
+                                    'model' => $model,
+                                    'files' => $data
+                                ];
                             }
                         }
                     ]
