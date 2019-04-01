@@ -81,17 +81,14 @@ Kirby::plugin('medienbaecker/link', [
                                 $field = $this->field();
                                 $model = [
                                     'id'    => null,
-                                    'title' => t('link-field.page')
+                                    'title' => t('link-field.file')
                                 ];
                                 $files = $field->model()->query("page.files", 'Kirby\Cms\Files');
                                 $data  = [];
                                 foreach ($files as $index => $file) {
                                     $data[] = $field->fileResponse($file);
                                 }
-                                return [
-                                    'model' => $model,
-                                    'files' => $data
-                                ];
+                                return $data;
                             }
                         }
                     ]
@@ -114,6 +111,9 @@ Kirby::plugin('medienbaecker/link', [
                 }
                 if($type == "page" AND $linkPage = page($link)) {
                     $link = $linkPage->url();
+                }
+                if($type == "file" AND $linkFile = $field->parent()->file($link)) {
+                    $link = $linkFile->url();
                 }
                 $href .= $link;
                 return $href;

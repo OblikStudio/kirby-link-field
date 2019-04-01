@@ -37,8 +37,14 @@ panel.plugin("medienbaecker/link", {
           setType(option = false) {
             var link = '';
             if(typeof(option) === "object") {
-              link = option[0].id;
-              option = "page";
+              if(option[0].filename) {
+                link = option[0].filename;
+                option = "file";  
+              } 
+              else {
+                link = option[0].id;
+                option = "page";
+              }
             }
             this.$emit("input", {
               link: link,
@@ -50,7 +56,6 @@ panel.plugin("medienbaecker/link", {
           },
           select(option = false) {
             if(option == "page") {
-              console.log(this.$api.get(this.endpoints.field + '/get/pages'));
               this.$refs['pagesDialog'].open({
                 endpoint: this.endpoints.field + '/get/pages',
                 multiple: false,
@@ -58,11 +63,10 @@ panel.plugin("medienbaecker/link", {
               });
             }
             else if(option == "file") {
-              console.log(this.$api.get(this.endpoints.field + '/get/files'));
-              this.$refs['filesDialog'].open({
-                endpoint: this.endpoints.field + '/get/files',
-                multiple: false,
-                selected: []
+              this.$api.get(this.endpoints.field + '/get/files').then(files => {
+                this.$refs.filesDialog.open(files, {
+                  multiple: false
+                });
               });
             }
             else {
