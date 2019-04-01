@@ -109,6 +109,9 @@ Kirby::plugin('medienbaecker/link', [
                 if($type == "email"){
                     $href .= "mailto:";
                 }
+                if($type == "phone") {
+                    $href .= "tel:";
+                }
                 if($type == "page" AND $linkPage = page($link)) {
                     $link = $linkPage->url();
                 }
