@@ -51,7 +51,14 @@ panel.plugin("medienbaecker/link", {
           select(option = false) {
             if(option == "page") {
               this.$refs['pagesDialog'].open({
-                endpoint: this.endpoints.field + '/get-pages',
+                endpoint: this.endpoints.field + '/get/pages',
+                multiple: false,
+                selected: []
+              });
+            }
+            else if(option == "file") {
+              this.$refs['filesDialog'].open({
+                endpoint: this.endpoints.field + '/get/files',
                 multiple: false,
                 selected: []
               });
@@ -85,6 +92,8 @@ panel.plugin("medienbaecker/link", {
             </k-input>
 
             <k-pages-dialog ref="pagesDialog" @submit="select"/>
+
+            <k-files-dialog ref="filesDialog" @submit="select"/>
 
           </k-field>
         `
