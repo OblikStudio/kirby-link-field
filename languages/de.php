@@ -1,7 +1,8 @@
 <?php
 return array(
-	'link-field.url'   => 'URL eingeben',
-	'link-field.page' => 'Seite auswählen',
-	'link-field.email' => 'E-Mail Adresse eingeben',
+	'link-field.url'   => 'URL',
+	'link-field.file' => 'Datei',
+	'link-field.page' => 'Seite',
+	'link-field.email' => 'E-Mail',
 	'link-field.change' => 'Link-Typ ändern'
 );
