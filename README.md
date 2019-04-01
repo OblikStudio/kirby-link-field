@@ -14,7 +14,7 @@ fields:
     type:   link
 ```
 
-You can optionally define the possible link types (`url`, `page` and `email`) and their order like that:
+You can optionally define the possible link types (`url`, `page`, `email`, `file`, `phone`) and their order like that:
 
 ```yaml
 fields:
@@ -47,6 +47,16 @@ type: page
 
 ```
 
+A file link:
+
+```yml
+Button: 
+
+link: your-file.jpeg
+type: file
+
+```
+
 An email address:
 
 ```yml
@@ -54,6 +64,15 @@ Button:
 
 link: mail@medienbaecker.com
 type: email
+```
+
+A phone number:
+
+```yml
+Button: 
+
+link: 123456
+type: phone
 ```
 
 ### Template example
@@ -65,6 +84,7 @@ There's a convenient `->toHref()` method you can use to automatically return the
 ```
 
 Email address: `mailto:mail@medienbaecker.com`
+Phone number: `tel:123456`
 Page link: `https://www.example.com/products/lorem-ipsum`
 
 ## Installation
