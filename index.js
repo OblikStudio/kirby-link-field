@@ -57,6 +57,7 @@ panel.plugin("medienbaecker/link", {
               });
             }
             else if(option == "file") {
+              console.log(this.$api.get(this.endpoints.field + '/get/files'));
               this.$refs['filesDialog'].open({
                 endpoint: this.endpoints.field + '/get/files',
                 multiple: false,

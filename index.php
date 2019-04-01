@@ -30,17 +30,10 @@ Kirby::plugin('medienbaecker/link', [
                     ];
                 },
                 'fileResponse' => function ($file) {
-                    if ($this->layout === 'list') {
-                        $thumb = [
-                            'width'  => 100,
-                            'height' => 100
-                        ];
-                    } else {
-                        $thumb = [
-                            'width'  => 400,
-                            'height' => 400
-                        ];
-                    }
+                    $thumb = [
+                        'width'  => 100,
+                        'height' => 100
+                    ];
                     $image = $file->panelImage($this->image, $thumb);
                     $model = $this->model();
                     $uuid  = $file->parent() === $model ? $file->filename() : $file->id();
