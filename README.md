@@ -1,6 +1,6 @@
 # Link field for Kirby 3 (WIP)
 
-This is a link field for Kirby 3. You can conveniently insert external, email or page links.
+This is a link field for Kirby 3. You can conveniently insert external, file links, email addresses, page links or phone numbers.
 
 ### Preview
 
