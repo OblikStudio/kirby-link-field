@@ -110,6 +110,7 @@ Kirby::plugin('medienbaecker/link', [
                     $href .= "mailto:";
                 }
                 if($type == "phone") {
+                    $link = str::replace($link, array(' ', '/', '-', '.'), '');
                     $href .= "tel:";
                 }
                 if($type == "page" AND $linkPage = page($link)) {
