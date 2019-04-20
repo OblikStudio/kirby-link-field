@@ -103,8 +103,21 @@ Kirby::plugin('medienbaecker/link', [
     'fieldMethods' => [
         'toHref' => function ($field) {
             if($field->isNotEmpty()) {
-                $type = $field->yaml()["type"];
-                $link = $field->yaml()["link"];
+                $data = $field->yaml();
+
+                if (!empty($data["type"]) AND !empty($data["link"])) {
+                    $type = $data["type"];
+                    $link = $data["link"];
+                } else if (!empty($data[0])) {
+                    // Fields like "link: https://example.com" are returned as
+                    // an array with the first element holding the value. This
+                    // adds support for fields of type `url` or `text` that
+                    // are supposed to be links.
+                    return $data[0];
+                } else {
+                    return "";
+                }
+
                 $href = "";
                 if($type == "email"){
                     $href .= "mailto:";
