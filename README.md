@@ -26,6 +26,8 @@ fields:
       - url
 ```
 
+By default, the `url`, `page` and `email` options are displayed.
+
 ### Content file
 
 An external URL:

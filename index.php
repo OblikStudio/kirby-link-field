@@ -7,7 +7,7 @@ Kirby::plugin('medienbaecker/link', [
                 'value' => function($value = null) {
                     return Yaml::decode($value);
                 },
-                'options' => function($options = ["url", "email", "page", "file"]) {
+                'options' => function($options = ["url", "page", "email"]) {
                     return $options;
                 }
             ],
