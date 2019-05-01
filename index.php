@@ -1,140 +1,117 @@
 <?php
 
+$fieldsSource = $kirby->root('kirby') . DS . 'config' . DS . 'fields';
+$pagesField = include $fieldsSource . DS . 'pages.php';
+$filesField = include $fieldsSource . DS . 'files.php';
+
 Kirby::plugin('medienbaecker/link', [
-    'fields' => [
-        'link' => [
-            'props' => [
-                'value' => function($value = null) {
-                    return Yaml::decode($value);
-                },
-                'options' => function($options = ["url", "page", "email"]) {
-                    return $options;
-                }
-            ],
-            'methods' => [
-                'pageResponse' => function ($page) {
-                    $thumb = [
-                        'width'  => 100,
-                        'height' => 100
-                    ];
-                    $image = $page->panelImage($this->image, $thumb);
-                    $model = $this->model();
-                    return [
-                        'text'        => $page->toString($this->text ?? '{{ page.title }}'),
-                        'link'        => $page->panelUrl(true),
-                        'id'          => $page->id(),
-                        'info'        => $page->toString($this->info ?? false),
-                        'image'       => $image,
-                        'icon'        => $page->panelIcon($image),
-                        'hasChildren' => $page->hasChildren(),
-                    ];
-                },
-                'fileResponse' => function ($file) {
-                    $thumb = [
-                        'width'  => 100,
-                        'height' => 100
-                    ];
-                    $image = $file->panelImage($this->image, $thumb);
-                    $model = $this->model();
-                    $uuid  = $file->parent() === $model ? $file->filename() : $file->id();
-                    return [
-                        'filename' => $file->filename(),
-                        'text'     => $file->toString($this->text),
-                        'link'     => $file->panelUrl(true),
-                        'id'       => $file->id(),
-                        'uuid'     => $uuid,
-                        'url'      => $file->url(),
-                        'info'     => $file->toString($this->info ?? false),
-                        'image'    => $image,
-                        'icon'     => $file->panelIcon($image),
-                        'type'     => $file->type(),
-                    ];
-                }
-            ],
-            'api' => function() {
-                return [
-                    [
-                        'pattern' => '/get/(:any)',
-                        'action' => function ($type) {
-                            if($type == "pages") {
-                                $field = $this->field();
-                                if (!$parent = $this->site()->find($this->requestQuery('parent'))) {
-                                    $parent = $this->site();
-                                }
-                                $pages = $parent->children();
-                                $model = [
-                                    'id'    => null,
-                                    'title' => t('link-field.page')
-                                ];
-                                $children = [];
-                                foreach ($pages as $index => $page) {
-                                    if ($page->isReadable() === true) {
-                                        $children[] = $field->pageResponse($page);
-                                    }
-                                }
-                                return [
-                                    'model' => $model,
-                                    'pages' => $children
-                                ];
-                            }
-                            if($type == "files") {
-                                $field = $this->field();
-                                $model = [
-                                    'id'    => null,
-                                    'title' => t('link-field.file')
-                                ];
-                                $files = $field->model()->query("page.files", 'Kirby\Cms\Files');
-                                $data  = [];
-                                foreach ($files as $index => $file) {
-                                    $data[] = $field->fileResponse($file);
-                                }
-                                return $data;
-                            }
-                        }
-                    ]
-                ];
-            }
-        ]
-    ],
-    'translations' => [
-        'en' => require_once __DIR__ . '/languages/en.php',
-        'de' => require_once __DIR__ . '/languages/de.php'
-    ],
-    'fieldMethods' => [
-        'toHref' => function ($field) {
-            if($field->isNotEmpty()) {
-                $data = $field->yaml();
+  'fields' => [
+    'link' => [
+      'props' => [
+        'value' => function ($value = null) {
+          $data = Yaml::decode($value);
+          $page = $data['page'] ?? null;
+          $file = $data['file'] ?? null;
 
-                if (!empty($data["type"]) AND !empty($data["link"])) {
-                    $type = $data["type"];
-                    $link = $data["link"];
-                } else if (!empty($data[0])) {
-                    // Fields like "link: https://example.com" are returned as
-                    // an array with the first element holding the value. This
-                    // adds support for fields of type `url` or `text` that
-                    // are supposed to be links.
-                    return $data[0];
-                } else {
-                    return "";
-                }
+          if (is_string($page)) {
+            $data['page'] = [
+              $this->pageResponse(kirby()->page($page))
+            ];
+          }
 
-                $href = "";
-                if($type == "email"){
-                    $href .= "mailto:";
-                }
-                if($type == "phone") {
-                    $link = str::replace($link, array(' ', '/', '-', '.'), '');
-                    $href .= "tel:";
-                }
-                if($type == "page" AND $linkPage = page($link)) {
-                    $link = $linkPage->url();
-                }
-                if($type == "file" AND $linkFile = $field->parent()->file($link)) {
-                    $link = $linkFile->url();
-                }
-                $href .= $link;
-                return $href;
-            }
+          if (is_string($file)) {
+            $data['file'] = [
+              $this->fileResponse(kirby()->file($file, $this->model()))
+            ];
+          }
+
+          return $data;
+        },
+        'options' => function ($value = ['url', 'page', 'file', 'email', 'tel']) {
+          return $value;
         }
+      ],
+      'methods' => [
+        'pageResponse' => $pagesField['methods']['pageResponse'],
+        'fileResponse' => $filesField['methods']['fileResponse']
+      ],
+      'api' => function () use ($pagesField) {
+        return [
+          [
+            'pattern' => '/files',
+            'method' => 'GET',
+            'action' => function () { // kirby/config/fields/files.php
+              $field = $this->field();
+              $pagesFiles = site()->index()->files();
+              $files = site()->files()->add($pagesFiles);
+              $data = [];
+
+              foreach ($files as $index => $file) {
+                $data[] = $field->fileResponse($file);
+              }
+
+              return $data;
+            }
+          ],
+          [
+            'pattern' => '/pages',
+            'method' => 'GET',
+            'action' => $pagesField['api']()[0]['action']
+          ]
+        ];
+      },
+      'save' => function ($value = null) {
+        if (!empty($value['page'])) {
+          $value['page'] = $value['page'][0]['id'] ?? '';
+        }
+
+        if (!empty($value['file'])) {
+          $value['file'] = $value['file'][0]['id'] ?? '';
+        }
+
+        return $value;
+      }
     ]
+  ],
+  'translations' => [
+    'en' => require_once __DIR__ . '/languages/en.php',
+    'de' => require_once __DIR__ . '/languages/de.php'
+  ],
+  'fieldMethods' => [
+    'toHref' => function ($field) {
+      if($field->isNotEmpty()) {
+        $data = $field->yaml();
+
+        if (!empty($data["type"]) AND !empty($data["link"])) {
+          $type = $data["type"];
+          $link = $data["link"];
+        } else if (!empty($data[0])) {
+          // Fields like "link: https://example.com" are returned as
+          // an array with the first element holding the value. This
+          // adds support for fields of type `url` or `text` that
+          // are supposed to be links.
+          return $data[0];
+        } else {
+          return "";
+        }
+
+        $href = "";
+        if($type == "email"){
+          $href .= "mailto:";
+        }
+        if($type == "phone") {
+          $link = str::replace($link, array(' ', '/', '-', '.'), '');
+          $href .= "tel:";
+        }
+        if($type == "page" AND $linkPage = page($link)) {
+          $link = $linkPage->url();
+        }
+        if($type == "file" AND $linkFile = $field->parent()->file($link)) {
+          $link = $linkFile->url();
+        }
+        $href .= $link;
+        return $href;
+      }
+    }
+  ]
 ]);

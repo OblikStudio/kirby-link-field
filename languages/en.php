@@ -1,9 +1,10 @@
 <?php
-return array(
-	'link-field.change'		=> 'Change link type',
-	'link-field.email'		=> 'Email',
-	'link-field.file'		=> 'File',
-	'link-field.page'		=> 'Page',
-	'link-field.phone'		=> 'Phone',
-	'link-field.url'		=> 'URL'
-);
+
+return [
+  'url' => 'URL',
+  'page' => 'Page',
+  'file' => 'File',
+  'email' => 'Email',
+  'tel' => 'Phone',
+  'error.type' => 'Invalid field type: {type}'
+];

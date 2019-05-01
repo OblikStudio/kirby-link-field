@@ -1,14 +1,4 @@
-.k-link-field .k-button-group {
-  margin: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: stretch; }
-  .k-link-field .k-button-group .k-button {
-    line-height: 1.25rem;
-    padding: .5rem;
-    border-right: 1px solid #ccc;
-    flex: 1; }
-    .k-link-field .k-button-group .k-button:last-child {
-      border-right: 0; }
-    .k-link-field .k-button-group .k-button .k-button-text {
-      line-height: 1rem; }
+.k-link-field .k-field .k-field-header {
+  display: none;
+}
+
