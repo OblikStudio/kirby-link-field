@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . DS . 'src' . DS . 'Link.php';
+
 $fieldsSource = $kirby->root('kirby') . DS . 'config' . DS . 'fields';
 $pagesField = include $fieldsSource . DS . 'pages.php';
 $filesField = include $fieldsSource . DS . 'files.php';
@@ -8,21 +10,21 @@ Kirby::plugin('medienbaecker/link', [
   'fields' => [
     'link' => [
       'props' => [
-        'value' => function ($value = null) {
-          $data = Yaml::decode($value);
-          $page = $data['page'] ?? null;
-          $file = $data['file'] ?? null;
+        'value' => function ($data = null) {
+          if (is_string($data)) {
+            $data = Yaml::decode($data);
+            $type = $data['type'] ?? null;
+            $value = $data['value'] ?? null;
 
-          if (is_string($page)) {
-            $data['page'] = [
-              $this->pageResponse(kirby()->page($page))
-            ];
-          }
-
-          if (is_string($file)) {
-            $data['file'] = [
-              $this->fileResponse(kirby()->file($file, $this->model()))
-            ];
+            if ($value) {
+              if ($type === 'page' && $page = kirby()->page($value)) {
+                $data['page'] = [ $this->pageResponse($page) ];
+              } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
+                $data['file'] = [ $this->fileResponse($file) ];
+              } else {
+                $data[$type] = $value;
+              }
+            }
           }
 
           return $data;
@@ -60,16 +62,27 @@ Kirby::plugin('medienbaecker/link', [
           ]
         ];
       },
-      'save' => function ($value = null) {
-        if (!empty($value['page'])) {
-          $value['page'] = $value['page'][0]['id'] ?? '';
+      'save' => function ($data) {
+        $type = $data['type'] ?? null;
+
+        if (!$type) {
+          return false;
         }
 
-        if (!empty($value['file'])) {
-          $value['file'] = $value['file'][0]['id'] ?? '';
+        if ($type === 'page') {
+          $value = $data['page'][0]['id'] ?? null;
+        } else if ($type === 'file') {
+          $value = $data['file'][0]['id'] ?? null;
+        } else {
+          $value = $data[$type] ?? null;
         }
 
-        return $value;
+        $saved = [
+          'type' => $type,
+          'value' => $value
+        ];
+
+        return $saved;
       }
     ]
   ],
@@ -78,40 +91,8 @@ Kirby::plugin('medienbaecker/link', [
     'de' => require_once __DIR__ . '/languages/de.php'
   ],
   'fieldMethods' => [
-    'toHref' => function ($field) {
-      if($field->isNotEmpty()) {
-        $data = $field->yaml();
-
-        if (!empty($data["type"]) AND !empty($data["link"])) {
-          $type = $data["type"];
-          $link = $data["link"];
-        } else if (!empty($data[0])) {
-          // Fields like "link: https://example.com" are returned as
-          // an array with the first element holding the value. This
-          // adds support for fields of type `url` or `text` that
-          // are supposed to be links.
-          return $data[0];
-        } else {
-          return "";
-        }
-
-        $href = "";
-        if($type == "email"){
-          $href .= "mailto:";
-        }
-        if($type == "phone") {
-          $link = str::replace($link, array(' ', '/', '-', '.'), '');
-          $href .= "tel:";
-        }
-        if($type == "page" AND $linkPage = page($link)) {
-          $link = $linkPage->url();
-        }
-        if($type == "file" AND $linkFile = $field->parent()->file($link)) {
-          $link = $linkFile->url();
-        }
-        $href .= $link;
-        return $href;
-      }
+    'toLink' => function ($field) {
+      return new LinkField\Link($field);
     }
   ]
 ]);
