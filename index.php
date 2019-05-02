@@ -18,11 +18,9 @@ Kirby::plugin('medienbaecker/link', [
 
             if ($value) {
               if ($type === 'page' && $page = kirby()->page($value)) {
-                $data['page'] = [ $this->pageResponse($page) ];
+                $data['value'] = [ $this->pageResponse($page) ];
               } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
-                $data['file'] = [ $this->fileResponse($file) ];
-              } else {
-                $data[$type] = $value;
+                $data['value'] = [ $this->fileResponse($file) ];
               }
             }
           }
@@ -64,25 +62,18 @@ Kirby::plugin('medienbaecker/link', [
       },
       'save' => function ($data) {
         $type = $data['type'] ?? null;
+        $value = $data['value'] ?? null;
 
         if (!$type) {
           return false;
         }
 
-        if ($type === 'page') {
-          $value = $data['page'][0]['id'] ?? null;
-        } else if ($type === 'file') {
-          $value = $data['file'][0]['id'] ?? null;
-        } else {
-          $value = $data[$type] ?? null;
+        // Store just the id of a file or a page.
+        if ($type === 'page' || $type === 'file') {
+          $data['value'] = $value[0]['id'] ?? null;
         }
 
-        $saved = [
-          'type' => $type,
-          'value' => $value
-        ];
-
-        return $saved;
+        return $data;
       }
     ]
   ],

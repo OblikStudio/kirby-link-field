@@ -7,15 +7,16 @@
           v-model="data.type"
           :options="types"
           :empty="false"
+          @input="inputType"
         />
       </k-column>
 
       <k-column :width="showSelect ? '3/4' : null">
-        <k-url-field v-if="data.type === 'url'" v-model="data.url" />
+        <k-url-field v-if="data.type === 'url'" v-model="data.value" />
 
         <k-pages-field
           v-else-if="data.type === 'page'"
-          v-model="data.page"
+          v-model="data.value"
           :endpoints="{
             field: this.endpoints.field + '/pages'
           }"
@@ -23,15 +24,15 @@
 
         <k-files-field
           v-else-if="data.type === 'file'"
-          v-model="data.file"
+          v-model="data.value"
           :endpoints="{
             field: this.endpoints.field + '/files'
           }"
         ></k-files-field>
 
-        <k-email-field v-else-if="data.type === 'email'" v-model="data.email" />
+        <k-email-field v-else-if="data.type === 'email'" v-model="data.value" />
 
-        <k-tel-field v-else-if="data.type === 'tel'" v-model="data.tel" />
+        <k-tel-field v-else-if="data.type === 'tel'" v-model="data.value" />
 
         <k-box
           v-else
@@ -77,11 +78,17 @@ export default {
       return this.types.length > 1
     }
   },
+  methods: {
+    inputType: function () {
+      this.data.value = undefined;
+    }
+  },
   created: function () {
     // If the link type is not valid (e.g. when changing the blueprint), set
     // it to a valid one.
     if (this.options.indexOf(this.data.type) < 0) {
       this.data.type = this.options[0]
+      this.data.value = undefined
     }
   },
   watch: {
