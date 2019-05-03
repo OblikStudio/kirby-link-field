@@ -68,7 +68,7 @@ Kirby::plugin('medienbaecker/link', [
         $type = $data['type'] ?? null;
         $value = $data['value'] ?? null;
 
-        if (!$type) {
+        if (!$type || !$value) {
           return null;
         }
 
