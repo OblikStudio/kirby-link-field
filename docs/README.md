@@ -58,7 +58,7 @@ settings: false
 
 ## Usage
 
-To render the links, use the provided `toLink()` method, which returns an instance of the Link class.
+To render the links, use the provided `toLink()` method. It returns an instance of the Link class, or `null` if the link is invalid.
 
 Let's say you have a field with the following values:
 

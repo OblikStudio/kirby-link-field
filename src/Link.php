@@ -5,12 +5,12 @@ use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 
 class Link {
-  function __construct ($field) {
+  function __construct ($field, $data) {
     $this->field = $field;
-    $this->data = $this->field->yaml();
+    $this->data = $data;
 
-    $this->type = $this->data['type'] ?? null;
-    $this->value = $this->data['value'] ?? null;
+    $this->type = $this->data['type'];
+    $this->value = $this->data['value'];
     $this->popup = $this->data['popup'] ?? false;
     $this->hash = $this->data['hash'] ?? null;
     $this->text = $this->data['text'] ?? null;

@@ -19,9 +19,11 @@ Kirby::plugin('medienbaecker/link', [
           $value = $data['value'] ?? null;
 
           // Handle cases where the field has an old leftover value that is
-          // incompatible with this field.
+          // invalid.
           if (!$type) {
-            return [];
+            return [
+              'type' => 'url'
+            ];
           }
 
           if (is_string($value)) {
@@ -93,7 +95,13 @@ Kirby::plugin('medienbaecker/link', [
   ],
   'fieldMethods' => [
     'toLink' => function ($field) {
-      return new LinkField\Link($field);
+      $data = $field->yaml();
+
+      if (!empty($data['type']) && !empty($data['value'])) {
+        return new LinkField\Link($field, $data);
+      } else {
+        return null;
+      }
     }
   ]
 ]);

@@ -98,10 +98,6 @@ export default {
       deep: true,
       immediate: true,
       handler: function () {
-        if (!this.data.type) {
-          this.data.type = 'url'
-        }
-
         // If the link type is not valid (e.g. when changing the blueprint), set
         // it to a valid one.
         if (this.options.indexOf(this.data.type) < 0) {

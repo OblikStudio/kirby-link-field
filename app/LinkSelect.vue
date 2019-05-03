@@ -11,7 +11,7 @@
     </k-column>
 
     <k-column :width="showSelect ? '3/4' : null">
-      <k-url-field v-if="data.type === 'url'" v-model="data.value" />
+      <k-url-field v-if="data.type === 'url'" v-model="data.value" placeholder="https://example.com/" />
 
       <k-pages-field
         v-else-if="data.type === 'page'"
