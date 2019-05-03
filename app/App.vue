@@ -110,7 +110,7 @@ export default {
   },
   watch: {
     value: function (value) {
-      Object.assign(this.data, value)
+      this.data = Object.assign({}, value)
     }
   }
 }
