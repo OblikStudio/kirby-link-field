@@ -22,30 +22,37 @@ export default {
   },
   computed: {
     fields: function () {
-      var value = {
+      var value = {}
+      var fields = {
         text: {
-          type: 'text',
-          label: this.$t('label.text'),
           width: '1/2',
+          type: 'text',
+          label: this.$t('label.text')
         },
         popup: {
+          width: '1/4',
           type: 'toggle',
-          label: this.$t('label.popup'),
-          width: '1/4'
+          label: this.$t('label.popup')
         },
         hash: {
+          width: '1/4',
           type: 'text',
           label: this.$t('label.hash'),
-          width: '1/4',
           placeholder: this.$t('placeholder.elementid')
         }
       }
 
+      // Merge defaults with defined fields in their order.
       for (var k in this.types) {
-        if (this.types[k] === false) {
-          delete value[k]
-        } else if (value[k]) {
-          Object.assign(value[k], this.types[k])
+        if (fields[k] && this.types[k]) {
+          value[k] = Object.assign(fields[k], this.types[k])
+        }
+      }
+
+      // Add any missing default fields that are not explicitly disabled.
+      for (var k in fields) {
+        if (!value[k] && this.types[k] !== false) {
+          value[k] = fields[k]
         }
       }
 

@@ -34,7 +34,7 @@ Kirby::plugin('medienbaecker/link', [
         'options' => function ($value = ['url', 'page', 'file', 'email', 'tel']) {
           return $value;
         },
-        'settings' => function ($value = null) {
+        'settings' => function ($value = []) {
           return $value;
         }
       ],
