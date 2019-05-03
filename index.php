@@ -10,23 +10,20 @@ Kirby::plugin('medienbaecker/link', [
   'fields' => [
     'link' => [
       'props' => [
-        'value' => function ($data = null) {
+        'value' => function ($data = []) {
           if (is_string($data)) {
             $data = Yaml::decode($data);
-            $type = $data['type'] ?? null;
-            $value = $data['value'] ?? null;
-
-            if ($value) {
-              if ($type === 'page' && $page = kirby()->page($value)) {
-                $data['value'] = [ $this->pageResponse($page) ];
-              } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
-                $data['value'] = [ $this->fileResponse($file) ];
-              }
-            }
           }
 
-          if (empty($data['type'])) {
-            $data['type'] = 'url';
+          $type = $data['type'] ?? null;
+          $value = $data['value'] ?? null;
+
+          if (is_string($value)) {
+            if ($type === 'page' && $page = kirby()->page($value)) {
+              $data['value'] = [ $this->pageResponse($page) ];
+            } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
+              $data['value'] = [ $this->fileResponse($file) ];
+            }
           }
 
           return $data;
@@ -72,7 +69,7 @@ Kirby::plugin('medienbaecker/link', [
         $value = $data['value'] ?? null;
 
         if (!$type) {
-          return false;
+          return null;
         }
 
         // Store just the id of a file or a page.

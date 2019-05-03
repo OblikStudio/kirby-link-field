@@ -90,27 +90,35 @@ export default {
       this.screen = this.isMainScreen ? 'options' : 'link'
     }
   },
-  created: function () {
-    // If the link type is not valid (e.g. when changing the blueprint), set
-    // it to a valid one.
-    if (this.options.indexOf(this.data.type) < 0) {
-      this.data.type = this.options[0]
-      this.data.value = undefined
-    }
-
-    // Pages and files fields expect an array.
-    if (this.data.type.match(/page|file/) && !Array.isArray(this.data.value)) {
-      this.data.value = undefined
-    }
-
-    // Convert null to undefined, otherwise pages and files fields break.
-    if (!this.data.value) {
-      this.data.value = undefined
-    }
-  },
   watch: {
     value: function (value) {
       this.data = Object.assign({}, value)
+    },
+    data: {
+      deep: true,
+      immediate: true,
+      handler: function () {
+        if (!this.data.type) {
+          this.data.type = 'url'
+        }
+
+        // If the link type is not valid (e.g. when changing the blueprint), set
+        // it to a valid one.
+        if (this.options.indexOf(this.data.type) < 0) {
+          this.data.type = this.options[0]
+          this.data.value = undefined
+        }
+
+        // Pages and files fields expect an array.
+        if (this.data.type.match(/page|file/) && !Array.isArray(this.data.value)) {
+          this.data.value = undefined
+        }
+
+        // Convert null to undefined, otherwise pages and files fields break.
+        if (!this.data.value) {
+          this.data.value = undefined
+        }
+      }
     }
   }
 }
