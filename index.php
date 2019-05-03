@@ -25,9 +25,16 @@ Kirby::plugin('medienbaecker/link', [
             }
           }
 
+          if (empty($data['type'])) {
+            $data['type'] = 'url';
+          }
+
           return $data;
         },
         'options' => function ($value = ['url', 'page', 'file', 'email', 'tel']) {
+          return $value;
+        },
+        'settings' => function ($value = null) {
           return $value;
         }
       ],

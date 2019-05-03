@@ -1,86 +1,89 @@
 <template>
   <k-field v-bind="$props" class="k-link-field">
-    <k-grid>
-      <k-column v-if="showSelect" width="1/4">
-        <k-select-field
-          type="select"
-          v-model="data.type"
-          :options="types"
-          :empty="false"
-          @input="inputType"
-        />
-      </k-column>
+    <k-button
+      slot="options"
+      :icon="isMainScreen ? 'cog' : 'cancel'"
+      @click="switchScreen"
+    >
+      {{ isMainScreen ? $t('label.settings') : $t('label.close') }}
+    </k-button>
 
-      <k-column :width="showSelect ? '3/4' : null">
-        <k-url-field v-if="data.type === 'url'" v-model="data.value" />
-
-        <k-pages-field
-          v-else-if="data.type === 'page'"
-          v-model="data.value"
-          :endpoints="{
-            field: this.endpoints.field + '/pages'
-          }"
-        ></k-pages-field>
-
-        <k-files-field
-          v-else-if="data.type === 'file'"
-          v-model="data.value"
-          :endpoints="{
-            field: this.endpoints.field + '/files'
-          }"
-        ></k-files-field>
-
-        <k-email-field v-else-if="data.type === 'email'" v-model="data.value" />
-
-        <k-tel-field v-else-if="data.type === 'tel'" v-model="data.value" />
-
-        <k-box
-          v-else
-          theme="negative"
-          :text="$t('error.type', { type: data.type })"
-        />
-      </k-column>
-    </k-grid>
+    <LinkSelect
+      v-if="isMainScreen"
+      v-model="link"
+      :options="options"
+      :endpoints="endpoints"
+      @input="emitInput"
+    ></LinkSelect>
+    <LinkSettings
+      v-else
+      v-model="settingsData"
+      :types="settings"
+      @input="emitInput"
+    ></LinkSettings>
   </k-field>
 </template>
 
 <script>
+import LinkSelect from './LinkSelect.vue'
+import LinkSettings from './LinkSettings.vue'
+
 export default {
+  components: {
+    LinkSelect,
+    LinkSettings
+  },
   props: {
     value: Object,
     endpoints: Object,
 
     label: String,
     help: String,
+    disabled: Boolean,
 
-    options: Array
+    options: Array,
+    settings: Object
   },
   data: function() {
-    var data = Object.assign({
-      type: 'url'
-    }, this.value)
-
-    var types = this.options.map(function (type) {
-      return {
-        value: type,
-        text: this.$t(type)
-      }
-    }.bind(this))
-
     return {
-      data: data,
-      types: types,
-      updatingValue: false
+      data: this.value,
+      screen: 'link'
     }
   },
   computed: {
-    showSelect: function () {
-      return this.types.length > 1
+    link: {
+      get: function () {
+        return {
+          type: this.data.type,
+          value: this.data.value
+        }
+      },
+      set: function (input) {
+        Object.assign(this.data, input)
+      }
+    },
+    settingsData: {
+      get: function () {
+        return {
+          text: this.data.text,
+          popup: this.data.popup,
+          hash: this.data.hash
+        }
+      },
+      set: function (input) {
+        Object.assign(this.data, input)
+      }
+    },
+    isMainScreen: function () {
+      return this.screen === 'link'
     }
   },
   methods: {
-    inputType: function () {
-      this.data.value = undefined;
+    emitInput: function () {
+      this.$emit('input', this.data)
+    },
+    switchScreen: function () {
+      this.screen = this.isMainScreen ? 'options' : 'link'
     }
   },
   created: function () {
@@ -90,38 +93,21 @@ export default {
       this.data.type = this.options[0]
       this.data.value = undefined
     }
+
+    // Pages and files fields expect an array.
+    if (this.data.type.match(/page|file/) && !Array.isArray(this.data.value)) {
+      this.data.value = undefined
+    }
+
+    // Convert null to undefined, otherwise pages and files fields break.
+    if (!this.data.value) {
+      this.data.value = undefined
+    }
   },
   watch: {
-    data: {
-      deep: true,
-      handler: function (value) {
-        if (!this.updatingValue) {
-          this.$emit('input', value)
-        }
-      }
-    },
-    value: {
-      immediate: true,
-      handler: function (value) {
-        this.updatingValue = true
-
-        Object.assign(this.data, value)
-
-        this.$nextTick(function () {
-          this.updatingValue = false
-        }.bind(this))
-      }
+    value: function (value) {
+      Object.assign(this.data, value)
     }
   }
 }
 </script>
-
-<style lang="scss">
-.k-link-field {
-  .k-field {
-    .k-field-header {
-      display: none; // hides the Select buttons
-    }
-  }
-}
-</style>
