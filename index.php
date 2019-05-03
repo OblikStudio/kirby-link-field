@@ -18,6 +18,12 @@ Kirby::plugin('medienbaecker/link', [
           $type = $data['type'] ?? null;
           $value = $data['value'] ?? null;
 
+          // Handle cases where the field has an old leftover value that is
+          // incompatible with this field.
+          if (!$type) {
+            return [];
+          }
+
           if (is_string($value)) {
             if ($type === 'page' && $page = kirby()->page($value)) {
               $data['value'] = [ $this->pageResponse($page) ];
