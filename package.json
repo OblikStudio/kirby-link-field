@@ -1,7 +1,6 @@
 {
   "name": "kirby-link-field",
   "version": "2.0.0",
-  "description": "This is a link field for Kirby 3. You can conveniently insert external, file links, email addresses, page links or phone numbers.",
   "main": "index.js",
   "scripts": {
     "dev": "webpack --watch --mode=development",
@@ -33,5 +32,6 @@
     "vue-loader": "^15.7.0",
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1"
-  }
+  },
+  "dependencies": {}
 }

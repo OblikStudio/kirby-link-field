@@ -1,94 +1,115 @@
-# Link field for Kirby 3
+# kirby-link-field
 
-This is a link field for Kirby 3. You can conveniently insert external, file links, email addresses, page links or phone numbers.
+Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash.
 
-### Preview
+## Installation
 
-![Preview](https://user-images.githubusercontent.com/7975568/51412878-59978c00-1b6d-11e9-94a0-69790e8f1b84.gif)
-
-### Blueprint
-```yaml
-fields:
-  button:
-    label:  Button
-    type:   link
+```
+composer require medienbaecker/kirby-link-field
 ```
 
-You can optionally define the possible link types (`url`, `page`, `email`, `file`, `phone`) and their order like that:
+...or check out [other plugin installation methods](https://getkirby.com/docs/guide/plugins/plugin-setup-basic#the-three-plugin-installation-methods).
+
+## Blueprint
+
+Add a field and set its type to `link`:
 
 ```yaml
 fields:
-  button:
-    label:  Button
-    type:   link
+  myfield:
+    type: link
+    label: Link
+```
+
+To define what link types you want, use `options`. Possible values are `url`, `page`, `file`, `email`, and `tel`:
+
+```yaml
+fields:
+  myfield:
+    type: link
+    label: Link
     options:
       - page
       - url
 ```
 
-By default, the `url`, `page` and `email` options are displayed.
+By default, you can also specify link text, popup true/false, and hash. You can disable those options or change their appearance by using the `settings` value:
 
-### Content file
-
-An external URL:
-
-```yml
-Button: 
-
-link: https://www.medienbaecker.com
-type: url
+```yaml
+fields:
+  myfield:
+    type: link
+    label: Link
+    settings:
+      popup:
+        width: 1/3
+        label: External Link
+        help: Open link in a new tab?
+      text:
+        width: 2/3
+      hash: false
 ```
 
-A page link:
+## Usage
 
-```yml
-Button: 
+To render the links, use the provided `toLink()` method, which returns an instance of the Link class.
 
-link: products/lorem-ipsum
+Let's say you have a field with the following values:
+
+```
+Myfield: 
+
 type: page
-
+value: home
+text: My Text
+popup: true
+hash: heading-1
 ```
-
-A file link:
-
-```yml
-Button: 
-
-link: your-file.jpeg
-type: file
-
-```
-
-An email address:
-
-```yml
-Button: 
-
-link: mail@medienbaecker.com
-type: email
-```
-
-A phone number:
-
-```yml
-Button: 
-
-link: 123456
-type: phone
-```
-
-### Template example
-
-There's a convenient `->toHref()` method you can use to automatically return the correct href:
 
 ```php
-<?= $page->button()->toHref() ?>
+$link = $page->myfield()->toLink();
 ```
 
-Email address: `mailto:mail@medienbaecker.com`
-Phone number: `tel:123456`
-Page link: `https://www.example.com/products/lorem-ipsum`
+### `$link->url()`
 
-## Installation
+Returns the link URL without the hash:
 
-Put the `link` folder into your `site/plugins` folder.
+```
+http://localhost/home
+```
+
+### `$link->href()`
+
+Returns the full link href:
+
+```
+http://localhost/home#heading-1
+```
+
+**Note:** This is automatically called when you try to convert the class to string, meaning that:
+
+```php
+echo $page->myfield()->toLink();
+```
+
+...is the same as:
+
+```php
+echo $page->myfield()->toLink()->href();
+```
+
+### `$link->attr()`
+
+Returns the link attributes:
+
+```
+href="http://localhost/home#heading-1" target="_blank"
+```
+
+### `$link->tag()`
+
+Returns a full `<a>` tag:
+
+```html
+<a href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank">My Text</a>
+```

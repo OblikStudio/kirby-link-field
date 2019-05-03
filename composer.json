@@ -8,6 +8,11 @@
       "name": "Thomas Günther",
       "email": "mail@medienbaecker.com",
       "homepage": "https://www.medienbaecker.com"
+    },
+    {
+      "name": "Hristiyan Dodov",
+      "email": "h.dodov@gmail.com",
+      "homepage": "https://dodov.me"
     }
   ],
   "require": {
