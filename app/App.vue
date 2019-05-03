@@ -2,6 +2,7 @@
   <k-field v-bind="$props" class="k-link-field">
     <k-button
       slot="options"
+      v-if="hasSettings"
       :icon="isMainScreen ? 'cog' : 'cancel'"
       @click="switchScreen"
     >
@@ -76,6 +77,9 @@ export default {
     },
     isMainScreen: function () {
       return this.screen === 'link'
+    },
+    hasSettings: function () {
+      return this.settings !== false
     }
   },
   methods: {

@@ -50,6 +50,12 @@ fields:
       hash: false
 ```
 
+To disable settings altogether, set:
+
+```yaml
+settings: false
+```
+
 ## Usage
 
 To render the links, use the provided `toLink()` method, which returns an instance of the Link class.
