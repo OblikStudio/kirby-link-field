@@ -45,9 +45,15 @@ export default {
     options: Array,
     settings: Object
   },
-  data: function() {
+  data: function () {
+    // When the field is in a structure, the initial value is `null` and a
+    // default value is not fetched from the backend, so it's specified here.
+    var data = this.value || {
+      type: 'url'
+    }
+
     return {
-      data: this.value,
+      data: data,
       screen: 'link'
     }
   },
