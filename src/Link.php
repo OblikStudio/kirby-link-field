@@ -33,6 +33,10 @@ class Link {
     return $this->href();
   }
 
+  public function text () {
+    return $this->text ?? '';
+  }
+
   public function url () {
     if ($this->type === 'page') {
       if ($this->page) {

@@ -119,3 +119,7 @@ Returns a full `<a>` tag:
 ```html
 <a href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank">My Text</a>
 ```
+
+### `$link->text()`
+
+Returns the link text, if present, or an empty string.
