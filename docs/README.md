@@ -78,19 +78,23 @@ $link = $page->myfield()->toLink();
 
 ### `$link->url()`
 
-Returns the link URL without the hash:
-
-```
-http://localhost/home
-```
-
-### `$link->href()`
-
-Returns the full link href:
+Returns the link URL, including the hash:
 
 ```
 http://localhost/home#heading-1
 ```
+
+**Note:** For `email` and `tel` links, the value is `null` since they're not actual links.
+
+### `$link->href()`
+
+Returns link href:
+
+```
+http://localhost/home#heading-1
+```
+
+If the link type is `email`, the href has `mailto:`. If it's `tel`, it has `tel:`.
 
 **Note:** This is automatically called when you try to convert the class to string, meaning that:
 
@@ -123,3 +127,17 @@ Returns a full `<a>` tag:
 ### `$link->text()`
 
 Returns the link text, if present, or an empty string.
+
+### `$link->parts`
+
+An instance of the `Kirby\Http\Uri` class. It contains the parts of `$link->url()`. You can also use its methods on the Link instance. For example:
+
+```php
+echo $link->parts->host();
+```
+
+...is the same as:
+
+```php
+echo $link->host();
+```

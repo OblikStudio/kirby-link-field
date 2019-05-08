@@ -1,6 +1,7 @@
 <?php
 namespace LinkField;
 
+use Kirby\Http\Url;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 
@@ -27,6 +28,12 @@ class Link {
         $this->file = kirby()->file($this->value, $this->field->model());
       }
     }
+
+    $this->parts = Url::toObject($this->url() ?? '');
+  }
+
+  function __call ($name, $arguments = []) {
+    return $this->parts->$name();
   }
 
   function __toString () {
@@ -38,38 +45,31 @@ class Link {
   }
 
   public function url () {
-    if ($this->type === 'page') {
-      if ($this->page) {
-        return $this->page->url();
-      }
-    } else if ($this->type === 'file') {
-      if ($this->file) {
-        return $this->file->url();
-      }
+    $value = null;
+
+    if ($this->type === 'url') {
+      $value = $this->value;
+    } else if ($this->type === 'page' && $this->page) {
+      $value = $this->page->url();
+    } else if ($this->type === 'file' && $this->file) {
+      $value = $this->file->url();
     }
 
-    if ($this->value) {
-      if ($this->type === 'tel') {
-        $phone = Str::replace($this->value, [' ', '/', '-', '.'], '');
-        return 'tel:' . $phone;
-      } else if ($this->type === 'email') {
-        return 'mailto:' . $this->value;
-      } else {
-        return $this->value;
-      }
-    }
-
-    return '';
-  }
-
-  public function href () {
-    $value = $this->url();
-
-    if ($this->hash && strpos($value, 'http') === 0) {
+    if (is_string($value) && $this->hash) {
       $value .= '#' . $this->hash;
     }
 
     return $value;
+  }
+
+  public function href () {
+    if ($this->type === 'tel') {
+      return 'tel:' . Str::replace($this->value, [' ', '/', '-', '.'], '');
+    } else if ($this->type === 'email') {
+      return 'mailto:' . $this->value;
+    } else {
+      return $this->url();
+    }
   }
 
   public function attributes ($attr = []) {
