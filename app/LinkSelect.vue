@@ -1,6 +1,6 @@
 <template>
   <k-grid>
-    <k-column v-if="showSelect" width="1/4">
+    <k-column v-if="showSelect" :width="uiWidth.select">
       <k-select-field
         type="select"
         v-model="data.type"
@@ -10,7 +10,7 @@
       />
     </k-column>
 
-    <k-column :width="showSelect ? '3/4' : null">
+    <k-column :width="uiWidth.field">
       <k-url-field v-if="data.type === 'url'" v-model="data.value" placeholder="https://example.com/" />
 
       <k-pages-field
@@ -47,7 +47,8 @@ export default {
   props: {
     value: Object,
     options: Array,
-    endpoints: Object
+    endpoints: Object,
+    width: String
   },
   data: function () {
     return {
@@ -58,6 +59,20 @@ export default {
   computed: {
     showSelect: function () {
       return this.types.length > 1
+    },
+    widthPercent: function () {
+      var split = this.width.split('/')
+      var numerator = split[0] || 1
+      var denominator = split[1] || 1
+      return (numerator / denominator) * 100
+    },
+    uiWidth: function () {
+      var large = (this.widthPercent >= 50)
+
+      return {
+        select: large ? '1/4' : '1/1',
+        field: this.showSelect ? (large ? '3/4' : '1/1') : null
+      }
     },
     types: function () {
       return this.options.map(function (type) {

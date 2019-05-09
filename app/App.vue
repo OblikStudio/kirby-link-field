@@ -12,6 +12,7 @@
     <LinkSelect
       v-if="isMainScreen"
       v-model="link"
+      :width="width"
       :options="options"
       :endpoints="endpoints"
       @input="emitInput"
@@ -38,6 +39,7 @@ export default {
     value: Object,
     endpoints: Object,
 
+    width: String,
     label: String,
     help: String,
     disabled: Boolean,
