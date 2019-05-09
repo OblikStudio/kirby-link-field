@@ -141,3 +141,14 @@ echo $link->parts->host();
 ```php
 echo $link->host();
 ```
+
+## Development
+
+Run `npm i` to install Webpack and all other dev dependencies.
+
+Scripts:
+
+- `npm run dev` - start Webpack in dev mode with watch
+- `npm run build` - build the source
+
+**Note:** Since Babel would have been an overkill for such a small project, please write JavaScript in ES5.
