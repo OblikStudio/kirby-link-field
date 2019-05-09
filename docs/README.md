@@ -108,7 +108,7 @@ echo $page->myfield()->toLink();
 echo $page->myfield()->toLink()->href();
 ```
 
-### `$link->attr([...$args])`
+### `$link->attr([$args])`
 
 Returns the link attributes, merged with the optional `$args`:
 
@@ -116,7 +116,7 @@ Returns the link attributes, merged with the optional `$args`:
 href="http://localhost/home#heading-1" target="_blank"
 ```
 
-### `$link->tag([...$args])`
+### `$link->tag([$args])`
 
 Returns a full `<a>` tag with merged attributes from the optional `$args`:
 
