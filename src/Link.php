@@ -94,7 +94,7 @@ class Link {
     if (strpos($href, 'http') === 0) { // https://github.com/getkirby/kirby/issues/1734
       return Html::a($href, $this->text, $this->attributes($attr)); // https://github.com/getkirby/kirby/issues/1733
     } else {
-      return '';
+      return Html::tag('a', $this->text, $this->attributes($attr));
     }
   }
 }
