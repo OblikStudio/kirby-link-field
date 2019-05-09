@@ -108,17 +108,17 @@ echo $page->myfield()->toLink();
 echo $page->myfield()->toLink()->href();
 ```
 
-### `$link->attr()`
+### `$link->attr([...$args])`
 
-Returns the link attributes:
+Returns the link attributes, merged with the optional `$args`:
 
 ```
 href="http://localhost/home#heading-1" target="_blank"
 ```
 
-### `$link->tag()`
+### `$link->tag([...$args])`
 
-Returns a full `<a>` tag:
+Returns a full `<a>` tag with merged attributes from the optional `$args`:
 
 ```html
 <a href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank">My Text</a>
