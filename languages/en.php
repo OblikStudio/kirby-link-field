@@ -8,7 +8,7 @@ return [
   'tel' => 'Phone',
   'label.text' => 'Text',
   'label.popup' => 'Popup',
-  'label.hash' => 'Hash',
+  'label.fragment' => 'Fragment',
   'label.settings' => 'Settings',
   'label.close' => 'Close',
   'placeholder.elementid' => 'Element ID',

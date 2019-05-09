@@ -37,7 +37,7 @@ export default {
         hash: {
           width: '1/4',
           type: 'text',
-          label: this.$t('label.hash'),
+          label: this.$t('label.fragment'),
           placeholder: this.$t('placeholder.elementid')
         }
       }
