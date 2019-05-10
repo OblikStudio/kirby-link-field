@@ -18,12 +18,8 @@ Kirby::plugin('medienbaecker/link', [
           $type = $data['type'] ?? null;
           $value = $data['value'] ?? null;
 
-          // Handle cases where the field has an old leftover value that is
-          // invalid.
-          if (!$type) {
-            return [
-              'type' => 'url'
-            ];
+          if (!$type || !$value) {
+            return null;
           }
 
           if (is_string($value)) {
