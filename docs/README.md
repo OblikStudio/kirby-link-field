@@ -128,6 +128,10 @@ Returns a full `<a>` tag with merged attributes from the optional `$args`:
 
 Returns the link text, if present, or an empty string.
 
+### `$link->title()`
+
+Returns either the link text, page title, file title, filename, or finally the value. Used to generate the link text for the `tag()` method.
+
 ### `$link->parts`
 
 An instance of the `Kirby\Http\Uri` class. It contains the parts of `$link->url()`. You can also use its methods on the Link instance. For example:

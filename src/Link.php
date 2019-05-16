@@ -44,6 +44,32 @@ class Link {
     return $this->text ?? '';
   }
 
+  public function title () {
+    $text = $this->text;
+
+    if (!empty($text)) {
+      return $text;
+    }
+
+    if ($this->page) {
+      $text = $this->page->title()->value();
+    }
+
+    if ($this->file) {
+      $text = $this->file->title()->value();
+
+      if (!$text) {
+        $text = $this->file->filename();
+      }
+    }
+
+    if (empty($text)) {
+      $text = $this->value;
+    }
+
+    return $text;
+  }
+
   public function url () {
     $value = null;
 
@@ -92,9 +118,9 @@ class Link {
     $href = $this->href();
 
     if (strpos($href, 'http') === 0) { // https://github.com/getkirby/kirby/issues/1734
-      return Html::a($href, $this->text, $this->attributes($attr)); // https://github.com/getkirby/kirby/issues/1733
+      return Html::a($href, $this->title(), $this->attributes($attr)); // https://github.com/getkirby/kirby/issues/1733
     } else {
-      return Html::tag('a', $this->text, $this->attributes($attr));
+      return Html::tag('a', $this->title(), $this->attributes($attr));
     }
   }
 }
