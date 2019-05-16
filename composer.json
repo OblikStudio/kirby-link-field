@@ -1,18 +1,13 @@
 {
-  "name": "medienbaecker/kirby-link-field",
-  "description": "Kirby Link Field",
+  "name": "oblik/kirby-link-field",
+  "description": "Kirby 3 field for all types of links.",
   "type": "kirby-plugin",
   "license": "MIT",
   "authors": [
     {
-      "name": "Thomas Günther",
-      "email": "mail@medienbaecker.com",
-      "homepage": "https://www.medienbaecker.com"
-    },
-    {
       "name": "Hristiyan Dodov",
       "email": "h.dodov@gmail.com",
-      "homepage": "https://dodov.me"
+      "homepage": "https://dodov.me/"
     }
   ],
   "require": {
