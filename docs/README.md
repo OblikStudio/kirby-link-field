@@ -5,7 +5,7 @@ Kirby 3 Field for links of any kind - external, page, file, email, phone. Has se
 ## Installation
 
 ```
-composer require medienbaecker/kirby-link-field
+composer require oblik/kirby-link-field
 ```
 
 ...or check out [other plugin installation methods](https://getkirby.com/docs/guide/plugins/plugin-setup-basic#the-three-plugin-installation-methods).
