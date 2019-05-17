@@ -2,6 +2,14 @@
 
 Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash. Original plugin is [this](https://github.com/medienbaecker/kirby-link-field), created by [Thomas Günther](https://github.com/medienbaecker).
 
+The plugin uses the native Kirby fields for pages, files, url, email, and tel:
+
+![usage demo](usage.gif)
+
+If used inside a structure field, link fields get a nice preview. Links to pages and files get the native page/file preview:
+
+![links in structure field](structure.gif)
+
 ## Installation
 
 ```
