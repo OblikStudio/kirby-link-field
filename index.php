@@ -1,10 +1,10 @@
 <?php
 
-require_once __DIR__ . DS . 'src' . DS . 'Link.php';
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Link.php';
 
-$fieldsSource = $kirby->root('kirby') . DS . 'config' . DS . 'fields';
-$pagesField = include $fieldsSource . DS . 'pages.php';
-$filesField = include $fieldsSource . DS . 'files.php';
+$fieldsSource = $kirby->root('kirby') . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'fields';
+$pagesField = include $fieldsSource . DIRECTORY_SEPARATOR . 'pages.php';
+$filesField = include $fieldsSource . DIRECTORY_SEPARATOR . 'files.php';
 
 Kirby::plugin('medienbaecker/link', [
   'fields' => [
