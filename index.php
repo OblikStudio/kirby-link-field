@@ -1,14 +1,17 @@
 <?php
 
-require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Link.php';
+namespace LinkField;
 
-$fieldsSource = $kirby->root('kirby') . DIRECTORY_SEPARATOR . 'config' . DIRECTORY_SEPARATOR . 'fields';
-$pagesField = include $fieldsSource . DIRECTORY_SEPARATOR . 'pages.php';
-$filesField = include $fieldsSource . DIRECTORY_SEPARATOR . 'files.php';
+use Yaml;
+use Kirby;
+use LinkField\Link;
+
+require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Link.php';
 
 Kirby::plugin('medienbaecker/link', [
   'fields' => [
     'link' => [
+      'mixins' => ['pagepicker', 'filepicker'],
       'props' => [
         'value' => function ($data = []) {
           if (is_string($data)) {
@@ -40,31 +43,32 @@ Kirby::plugin('medienbaecker/link', [
         }
       ],
       'methods' => [
-        'pageResponse' => $pagesField['methods']['pageResponse'],
-        'fileResponse' => $filesField['methods']['fileResponse']
+        'pageResponse' => function ($page) {
+          return $page->panelPickerData();
+        },
+        'fileResponse' => function ($file) {
+          return $file->panelPickerData();
+        }
       ],
-      'api' => function () use ($pagesField) {
+      'api' => function () {
         return [
           [
             'pattern' => '/files',
             'method' => 'GET',
-            'action' => function () { // kirby/config/fields/files.php
-              $field = $this->field();
-              $pagesFiles = site()->index()->files();
-              $files = site()->files()->add($pagesFiles);
-              $data = [];
-
-              foreach ($files as $index => $file) {
-                $data[] = $field->fileResponse($file);
-              }
-
-              return $data;
+            'action' => function () {
+              return $this->field()->filepicker([
+                'query' => 'site.index.files'
+              ]);
             }
           ],
           [
             'pattern' => '/pages',
             'method' => 'GET',
-            'action' => $pagesField['api']()[0]['action']
+            'action' => function () {
+              return $this->field()->pagepicker([
+                'parent' => $this->requestQuery('parent')
+              ]);
+            }
           ]
         ];
       },
@@ -94,7 +98,7 @@ Kirby::plugin('medienbaecker/link', [
       $data = $field->yaml();
 
       if (!empty($data['type']) && !empty($data['value'])) {
-        return new LinkField\Link($field, $data);
+        return new Link($field, $data);
       } else {
         return null;
       }
