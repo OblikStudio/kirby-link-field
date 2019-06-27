@@ -47,7 +47,9 @@ Kirby::plugin('medienbaecker/link', [
           return $page->panelPickerData();
         },
         'fileResponse' => function ($file) {
-          return $file->panelPickerData();
+          return $file->panelPickerData([
+            'text' => '{{ file.id }}'
+          ]);
         }
       ],
       'api' => function () {
@@ -57,7 +59,8 @@ Kirby::plugin('medienbaecker/link', [
             'method' => 'GET',
             'action' => function () {
               return $this->field()->filepicker([
-                'query' => 'site.index.files'
+                'query' => 'site.index.files',
+                'text' => '{{ file.id }}'
               ]);
             }
           ],
