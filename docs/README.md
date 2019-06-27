@@ -1,3 +1,10 @@
+# BREAKING CHANGES (27 Jun 2019)
+
+Due to API changes in Kirby `3.2.0`, link-field's page select functionality had broken.
+
+- If you use Kirby `^3.2`, use link-field `^2.0`
+- If you use Kirby `<=3.1.4`, use link-field `<=1.0.2`
+
 # kirby-link-field
 
 Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash. Original plugin is [this](https://github.com/medienbaecker/kirby-link-field), created by [Thomas Günther](https://github.com/medienbaecker).

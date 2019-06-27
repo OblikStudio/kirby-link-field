@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/medienbaecker/kirby-link-field.git"
+    "url": "git+https://github.com/OblikStudio/kirby-link-field.git"
   },
   "keywords": [
     "kirby",
@@ -18,12 +18,12 @@
     "url",
     "href"
   ],
-  "author": "Thomas Günther",
+  "author": "Hristiyan Dodov",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/medienbaecker/kirby-link-field/issues"
+    "url": "https://github.com/OblikStudio/kirby-link-field/issues"
   },
-  "homepage": "https://github.com/medienbaecker/kirby-link-field#readme",
+  "homepage": "https://github.com/OblikStudio/kirby-link-field#readme",
   "devDependencies": {
     "css-loader": "^2.1.1",
     "mini-css-extract-plugin": "^0.6.0",
