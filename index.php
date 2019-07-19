@@ -8,7 +8,7 @@ use LinkField\Link;
 
 require_once __DIR__ . DIRECTORY_SEPARATOR . 'src' . DIRECTORY_SEPARATOR . 'Link.php';
 
-Kirby::plugin('medienbaecker/link', [
+Kirby::plugin('oblik/link-field', [
   'fields' => [
     'link' => [
       'mixins' => ['pagepicker', 'filepicker'],

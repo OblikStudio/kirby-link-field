@@ -1,7 +1,9 @@
+/* global panel */
+
 import App from './App.vue'
 import Preview from './Preview.vue'
 
-panel.plugin('medienbaecker/link', {
+panel.plugin('oblik/link-field', {
   fields: {
     link: App
   },
