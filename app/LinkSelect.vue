@@ -17,7 +17,7 @@
         v-else-if="data.type === 'page'"
         v-model="data.value"
         :endpoints="{
-          field: this.endpoints.field + '/pages'
+          field: this.endpoints.field + '/link-pages'
         }"
       ></k-pages-field>
 
@@ -25,7 +25,7 @@
         v-else-if="data.type === 'file'"
         v-model="data.value"
         :endpoints="{
-          field: this.endpoints.field + '/files'
+          field: this.endpoints.field + '/link-files'
         }"
       ></k-files-field>
 

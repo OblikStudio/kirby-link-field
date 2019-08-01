@@ -27,9 +27,9 @@ Kirby::plugin('oblik/link-field', [
 
           if (is_string($value)) {
             if ($type === 'page' && $page = kirby()->page($value)) {
-              $data['value'] = [ $this->pageResponse($page) ];
+              $data['value'] = [$this->pageResponse($page)];
             } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
-              $data['value'] = [ $this->fileResponse($file) ];
+              $data['value'] = [$this->fileResponse($file)];
             }
           }
 
@@ -53,19 +53,21 @@ Kirby::plugin('oblik/link-field', [
         }
       ],
       'api' => function () {
+        // Routes sould not be `files` or `pages` because they could conflict
+        // with native Kirby routes.
         return [
           [
-            'pattern' => '/files',
+            'pattern' => '/link-files',
             'method' => 'GET',
             'action' => function () {
               return $this->field()->filepicker([
-                'query' => 'site.index.files',
+                'query' => 'site.files.add(site.index.files)',
                 'text' => '{{ file.id }}'
               ]);
             }
           ],
           [
-            'pattern' => '/pages',
+            'pattern' => '/link-pages',
             'method' => 'GET',
             'action' => function () {
               return $this->field()->pagepicker([
