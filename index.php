@@ -1,6 +1,10 @@
 <?php
 
-namespace Oblik\Kirby\LinkField;
+namespace Oblik\LinkField;
+
+load([
+    'Oblik\\LinkField\\Link' => 'src/Link.php'
+], __DIR__);
 
 use Yaml;
 use Kirby;

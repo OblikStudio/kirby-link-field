@@ -1,6 +1,6 @@
 <?php
 
-namespace Oblik\Kirby\LinkField;
+namespace Oblik\LinkField;
 
 use Kirby\Http\Url;
 use Kirby\Toolkit\Str;

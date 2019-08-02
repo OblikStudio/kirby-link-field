@@ -10,11 +10,6 @@
       "homepage": "https://dodov.me/"
     }
   ],
-  "autoload": {
-    "psr-4": {
-      "Oblik\\Kirby\\LinkField\\": "src/"
-    }
-  },
   "require": {
     "getkirby/composer-installer": "^1.1"
   },
