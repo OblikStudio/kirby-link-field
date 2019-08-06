@@ -1,0 +1,15 @@
+title: Site
+preset: page
+unlisted: true
+
+fields:
+  link:
+    type: link
+  module:
+    type: builder
+    fieldsets:
+      text:
+        name: List
+        fields:
+          head:
+            type: link

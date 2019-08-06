@@ -1,0 +1,19 @@
+Title: Link Field
+
+----
+
+Link:
+
+type: page
+value: child
+
+----
+
+Module:
+
+- 
+  head:
+    type: file
+    value: test.png
+  _key: text
+  _uid: text_1564639033680_604
