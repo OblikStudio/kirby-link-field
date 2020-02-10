@@ -6,31 +6,50 @@ load([
     'Oblik\\LinkField\\Link' => 'src/Link.php'
 ], __DIR__);
 
-use Yaml;
-use Kirby;
+use Kirby\Cms\App;
+use Kirby\Data\Yaml;
 
-Kirby::plugin('oblik/link-field', [
+App::plugin('oblik/link-field', [
     'fields' => [
         'link' => [
             'mixins' => ['pagepicker', 'filepicker'],
             'props' => [
-                'value' => function ($data = []) {
-                    if (is_string($data)) {
-                        $data = Yaml::decode($data);
+                'value' => function ($input = null) {
+                    if (is_string($input)) {
+                        // Value comes from a TXT file.
+                        $data = Yaml::decode($input);
+                    } else {
+                        // Value comes from the panel and is serialized.
+                        $data = $input;
                     }
 
-                    $type = $data['type'] ?? null;
-                    $value = $data['value'] ?? null;
-
-                    if (!$type || !$value) {
-                        return null;
+                    if (empty($data['type'])) {
+                        // Handles cases where the field was previously of type
+                        // `url` and was not correctly formatted.
+                        $data = [
+                            'type' => 'url',
+                            'value' => $input
+                        ];
                     }
 
-                    if (is_string($value)) {
-                        if ($type === 'page' && $page = kirby()->page($value)) {
-                            $data['value'] = [$this->pageResponse($page)];
-                        } else if ($type === 'file' && $file = kirby()->file($value, $this->model())) {
-                            $data['value'] = [$this->fileResponse($file)];
+                    if (!empty($data['value'])) {
+                        if (is_string($data['value'])) {
+                            if ($data['type'] === 'page') {
+                                $targetPage = kirby()->page($data['value']);
+
+                                if ($targetPage) {
+                                    // Value is put in an array because the Panel field expects one.
+                                    $data['value'] = [$this->pageResponse($targetPage)];
+                                }
+                            } else if ($data['type'] === 'file') {
+                                $targetFile = kirby()->file($data['value']);
+
+                                if ($targetFile) {
+                                    $data['value'] = [$this->fileResponse($targetFile)];
+                                }
+                            }
+                        } else {
+                            // Value came from the panel and is a serialized Page or File.
                         }
                     }
 
@@ -101,14 +120,14 @@ Kirby::plugin('oblik/link-field', [
         'toLinkObject' => function ($field) {
             $data = $field->yaml();
 
-            if (!empty($data['type']) && !empty($data['value'])) {
-                return new Link($field, $data);
-            } else {
-                return new Link($field, [
+            if (empty($data['type']) || empty($data['value'])) {
+                $data = [
                     'type' => 'url',
                     'value' => $field->value()
-                ]);
+                ];
             }
+
+            return new Link($data);
         }
     ]
 ]);

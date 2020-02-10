@@ -8,16 +8,13 @@ use Kirby\Toolkit\Html;
 
 class Link
 {
-    function __construct($field, $data)
+    function __construct($data)
     {
-        $this->field = $field;
-        $this->data = $data;
-
-        $this->type = $this->data['type'];
-        $this->value = $this->data['value'];
-        $this->popup = $this->data['popup'] ?? false;
-        $this->hash = $this->data['hash'] ?? null;
-        $this->text = $this->data['text'] ?? null;
+        $this->type = $data['type'];
+        $this->value = $data['value'];
+        $this->popup = $data['popup'] ?? false;
+        $this->hash = $data['hash'] ?? null;
+        $this->text = $data['text'] ?? null;
 
         $this->page = null;
         $this->file = null;
@@ -28,7 +25,7 @@ class Link
             }
 
             if ($this->type === 'file') {
-                $this->file = kirby()->file($this->value, $this->field->model());
+                $this->file = kirby()->file($this->value);
             }
         }
 

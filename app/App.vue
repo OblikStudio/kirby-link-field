@@ -36,26 +36,31 @@ export default {
     LinkSettings
   },
   props: {
-    value: Object,
+    value: {
+      type: Object,
+      default: function () {
+        // If the field is inside a Structure, it'll have an `undefined` initial
+        // value, so this gives a valid default value.
+        return {
+          type: 'url',
+          value: undefined
+        }
+      }
+    },
     endpoints: Object,
 
     width: String,
     label: String,
     help: String,
     disabled: Boolean,
+    required: Boolean,
 
     options: Array,
     settings: Object
   },
   data: function () {
-    // When the field is in a structure, the initial value is `null` and a
-    // default value is not fetched from the backend, so it's specified here.
-    var data = this.value || {
-      type: this.options[0] || 'url'
-    }
-
     return {
-      data: data,
+      data: this.value,
       screen: 'link'
     }
   },
@@ -101,28 +106,6 @@ export default {
   watch: {
     value: function (value) {
       this.data = Object.assign({}, value)
-    },
-    data: {
-      deep: true,
-      immediate: true,
-      handler: function () {
-        // If the link type is not valid (e.g. when changing the blueprint), set
-        // it to a valid one.
-        if (this.options.indexOf(this.data.type) < 0) {
-          this.data.type = this.options[0]
-          this.data.value = undefined
-        }
-
-        // Pages and files fields expect an array.
-        if (this.data.type.match(/page|file/) && !Array.isArray(this.data.value)) {
-          this.data.value = undefined
-        }
-
-        // Convert null to undefined, otherwise pages and files fields break.
-        if (!this.data.value) {
-          this.data.value = undefined
-        }
-      }
     }
   }
 }
