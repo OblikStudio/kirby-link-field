@@ -98,13 +98,16 @@ Kirby::plugin('oblik/link-field', [
         'de' => require_once __DIR__ . '/languages/de.php'
     ],
     'fieldMethods' => [
-        'toLink' => function ($field) {
+        'toLinkObject' => function ($field) {
             $data = $field->yaml();
 
             if (!empty($data['type']) && !empty($data['value'])) {
                 return new Link($field, $data);
             } else {
-                return null;
+                return new Link($field, [
+                    'type' => 'url',
+                    'value' => $field->value()
+                ]);
             }
         }
     ]
