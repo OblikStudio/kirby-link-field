@@ -1,15 +1,11 @@
-title: Site
 preset: page
-unlisted: true
-
 fields:
-  link:
+  pageLink:
     type: link
-  module:
-    type: builder
-    fieldsets:
-      text:
-        name: List
-        fields:
-          head:
-            type: link
+  fileLink:
+    type: link
+  struct:
+    type: structure
+    fields:
+      link:
+        type: link
