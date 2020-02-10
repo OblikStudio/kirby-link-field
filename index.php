@@ -70,7 +70,8 @@ Kirby::plugin('oblik/link-field', [
                         'method' => 'GET',
                         'action' => function () {
                             return $this->field()->pagepicker([
-                                'parent' => $this->requestQuery('parent')
+                                'parent' => $this->requestQuery('parent'),
+                                'page' => $this->requestQuery('page') ?? 1
                             ]);
                         }
                     ]
