@@ -63,6 +63,14 @@ App::plugin('oblik/link-field', [
                     return $value;
                 },
                 'settings' => function ($value = []) {
+                    $config = kirby()->option('oblik.link-field.settings');
+
+                    if (is_array($value) && is_array($config)) {
+                        $value = array_merge($config);
+                    } else if (is_bool($config)) {
+                        $value = $config;
+                    }
+
                     return $value;
                 },
                 'pages' => function ($value = []) {
@@ -130,6 +138,7 @@ App::plugin('oblik/link-field', [
                 ];
             },
             'save' => function ($data) {
+                $data = array_filter($data);
                 $type = $data['type'] ?? null;
                 $value = $data['value'] ?? null;
 
