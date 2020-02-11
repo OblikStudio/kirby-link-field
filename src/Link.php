@@ -2,12 +2,20 @@
 
 namespace Oblik\LinkField;
 
-use Kirby\Http\Url;
 use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 
 class Link
 {
+    protected $type;
+    protected $value;
+    protected $popup;
+    protected $hash;
+    protected $text;
+
+    protected $page;
+    protected $file;
+
     function __construct($data)
     {
         $this->type = $data['type'];
@@ -28,23 +36,16 @@ class Link
                 $this->file = kirby()->file($this->value);
             }
         }
-
-        $this->parts = Url::toObject($this->url() ?? '');
     }
 
     function __call($name, $arguments = [])
     {
-        return $this->parts->$name();
+        return $this->$name;
     }
 
     function __toString()
     {
         return $this->href();
-    }
-
-    public function text()
-    {
-        return $this->text ?? '';
     }
 
     public function title()
@@ -96,7 +97,7 @@ class Link
     public function href()
     {
         if ($this->type === 'tel') {
-            return 'tel:' . Str::replace($this->value, [' ', '/', '-', '.'], '');
+            return 'tel:' . preg_replace('![^0-9\+]+!', '', $this->value);
         } else if ($this->type === 'email') {
             return 'mailto:' . $this->value;
         } else {
@@ -104,32 +105,32 @@ class Link
         }
     }
 
-    public function attributes($attr = [])
+    public function attrData($customData = [])
     {
-        $attributes = [
+        $data = [
             'href' => $this->href()
         ];
 
         if ($this->popup === true) {
-            $attributes['target'] = '_blank';
+            $data['target'] = '_blank';
         }
 
-        return array_merge($attributes, $attr);
+        return array_merge($data, $customData);
     }
 
-    public function attr($attr = [])
+    public function attr($customAttr = [])
     {
-        return Html::attr($this->attributes($attr));
+        $data = $this->attrData($customAttr);
+
+        $currentRel = $data['rel'] ?? null;
+        $currentTarget = $data['target'] ?? null;
+        $data['rel'] = Html::rel($currentRel, $currentTarget);
+
+        return Html::attr($data);
     }
 
     public function tag($attr = [])
     {
-        $href = $this->href();
-
-        if (strpos($href, 'http') === 0) { // https://github.com/getkirby/kirby/issues/1734
-            return Html::a($href, $this->title(), $this->attributes($attr)); // https://github.com/getkirby/kirby/issues/1733
-        } else {
-            return Html::tag('a', $this->title(), $this->attributes($attr));
-        }
+        return Html::a($this->href(), $this->title(), $this->attrData($attr));
     }
 }

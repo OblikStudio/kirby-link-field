@@ -26,13 +26,26 @@ final class LinkTest extends TestCase
     {
         $link = new Link([
             'type' => 'url',
+            'value' => 'https://example.com'
+        ]);
+
+        $this->assertEquals(
+            'href="https://example.com" testattr="test"',
+            $link->attr(['testAttr' => 'test'])
+        );
+    }
+
+    public function testAddsRelToAttributes()
+    {
+        $link = new Link([
+            'type' => 'url',
             'value' => 'https://example.com',
             'popup' => true
         ]);
 
         $this->assertEquals(
-            'href="https://example.com" target="_blank" testattr="test"',
-            $link->attr(['testAttr' => 'test'])
+            'href="https://example.com" rel="noopener noreferrer" target="_blank"',
+            $link->attr()
         );
     }
 
@@ -92,6 +105,19 @@ final class LinkTest extends TestCase
             '<a href="mailto:test@example.com">test@example.com</a>',
             $link->tag()
         );
+    }
+
+    public function testPropertyAccess()
+    {
+        $link = new Link([
+            'type' => 'email',
+            'value' => 'test@example.com',
+            'text' => 'test'
+        ]);
+
+        $this->assertEquals($link->type(), 'email');
+        $this->assertEquals($link->value(), 'test@example.com');
+        $this->assertEquals($link->text(), 'test');
     }
 
     public function testCastToString()
