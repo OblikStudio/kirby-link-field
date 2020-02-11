@@ -2,7 +2,6 @@
 
 namespace Oblik\LinkField;
 
-use Kirby\Toolkit\Str;
 use Kirby\Toolkit\Html;
 
 class Link

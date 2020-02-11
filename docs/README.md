@@ -94,6 +94,23 @@ return [
 ];
 ```
 
+### Pages/Files Settings
+
+You could specify settings for the pages/files field. For example:
+
+```yml
+fields:
+  myfield:
+    type: link
+    pages:
+      query: page.siblings
+      image:
+        cover: true
+    files:
+      query: site.files
+      text: '{{ file.id }}'
+```
+
 ## Usage
 
 To render the links, use the provided `toLinkObject()` method. It returns an instance of the Link class.
