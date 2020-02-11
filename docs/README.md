@@ -1,10 +1,3 @@
-# BREAKING CHANGES (27 Jun 2019)
-
-Due to API changes in Kirby `3.2.0`, link-field's page select functionality had broken.
-
-- If you use Kirby `^3.2`, use link-field `^2.0`
-- If you use Kirby `<=3.1.4`, use link-field `<=1.0.2`
-
 # kirby-link-field
 
 Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash. Original plugin is [this](https://github.com/medienbaecker/kirby-link-field), created by [Thomas Günther](https://github.com/medienbaecker).
@@ -18,6 +11,8 @@ If used inside a structure field, link fields get a nice preview. Links to pages
 ![links in structure field](structure.gif)
 
 ## Installation
+
+With [Composer](https://packagist.org/packages/oblik/kirby-link-field):
 
 ```
 composer require oblik/kirby-link-field
@@ -71,9 +66,37 @@ To disable settings altogether, set:
 settings: false
 ```
 
+You could also apply such settings globally:
+
+*config/config.php*
+
+```php
+return [
+    'oblik.linkField' => [
+        'options' => [
+            'url',
+            'page'
+        ],
+        'settings' => [
+            'popup' => [
+                'label' => 'External Link'
+            ]
+        ]
+    ]
+];
+```
+
+...or:
+
+```php
+return [
+    'oblik.linkField.settings' => false
+];
+```
+
 ## Usage
 
-To render the links, use the provided `toLink()` method. It returns an instance of the Link class, or `null` if the link is invalid.
+To render the links, use the provided `toLinkObject()` method. It returns an instance of the Link class.
 
 Let's say you have a field with the following values:
 
@@ -88,7 +111,7 @@ hash: heading-1
 ```
 
 ```php
-$link = $page->myfield()->toLink();
+$link = $page->myfield()->toLinkObject();
 ```
 
 ### `$link->url()`
@@ -109,65 +132,81 @@ Returns link href:
 http://localhost/home#heading-1
 ```
 
-If the link type is `email`, the href has `mailto:`. If it's `tel`, it has `tel:`.
+If the link type is `email` or `tel`, it has `mailto:` or `tel:` accordingly.
 
 **Note:** This is automatically called when you try to convert the class to string, meaning that:
 
 ```php
-echo $page->myfield()->toLink();
+echo $page->myfield()->toLinkObject();
 ```
 
 ...is the same as:
 
 ```php
-echo $page->myfield()->toLink()->href();
+echo $page->myfield()->toLinkObject()->href();
 ```
 
-### `$link->attr([$args])`
+### `$link->attr([$attributes])`
 
-Returns the link attributes, merged with the optional `$args`:
+Returns the link attributes, merged with the optional `$attributes`:
 
 ```
-href="http://localhost/home#heading-1" target="_blank"
+href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank"
 ```
 
-### `$link->tag([$args])`
+### `$link->tag([$attributes])`
 
-Returns a full `<a>` tag with merged attributes from the optional `$args`:
+Returns a full `<a>` tag with merged attributes from the optional `$attributes`:
 
 ```html
 <a href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank">My Text</a>
 ```
 
-### `$link->text()`
-
-Returns the link text, if present, or an empty string.
-
 ### `$link->title()`
 
 Returns either the link text, page title, file title, filename, or finally the value. Used to generate the link text for the `tag()` method.
 
-### `$link->parts`
+### Retrieving Properties
 
-An instance of the `Kirby\Http\Uri` class. It contains the parts of `$link->url()`. You can also use its methods on the Link instance. For example:
-
-```php
-echo $link->parts->host();
-```
-
-...is the same as:
+You can get the properties of a link by invoking them as a method:
 
 ```php
-echo $link->host();
+echo $link->type();     // page
+echo $link->value();    // home
+echo $link->text();     // My Text
+echo $link->popup();    // true
+echo $link->hash();     // heading-1
 ```
 
-## Development
+## Migrating From URL Fields
 
-Run `npm i` to install Webpack and all other dev dependencies.
+If you've previously used a URL field:
 
-Scripts:
+```yml
+fields:
+  myfield:
+    type: url
+```
 
-- `npm run dev` - start Webpack in dev mode with watch
-- `npm run build` - build the source
+...you could simply change it to:
 
-**Note:** Since Babel would have been an overkill for such a small project, please write JavaScript in ES5.
+```yml
+fields:
+  myfield:
+    type: link
+```
+
+...and it'll work. Also, the `toLinkObject()` method can handle both link formats in your TXT files. It's the same if you have:
+
+```
+Myfield: https://example.com
+```
+
+...or:
+
+```
+Myfield:
+
+type: url
+value: https://example.com
+```
