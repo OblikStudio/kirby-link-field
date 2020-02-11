@@ -60,7 +60,7 @@ final class LinkTest extends TestCase
         );
 
         $this->assertEquals(
-            'test.png',
+            'test.svg',
             $fileLink->title()
         );
     }
