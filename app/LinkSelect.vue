@@ -16,6 +16,7 @@
       <k-pages-field
         v-else-if="data.type === 'page'"
         v-model="data.value"
+        :search="true"
         :endpoints="{
           field: this.endpoints.field + '/link-pages'
         }"
@@ -24,6 +25,7 @@
       <k-files-field
         v-else-if="data.type === 'file'"
         v-model="data.value"
+        :search="true"
         :endpoints="{
           field: this.endpoints.field + '/link-files'
         }"

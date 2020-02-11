@@ -40,12 +40,16 @@ App::plugin('oblik/link-field', [
                                 if ($targetPage) {
                                     // Value is put in an array because the Panel field expects one.
                                     $data['value'] = [$this->pageResponse($targetPage)];
+                                } else {
+                                    $data['value'] = [];
                                 }
                             } else if ($data['type'] === 'file') {
                                 $targetFile = kirby()->file($data['value']);
 
                                 if ($targetFile) {
                                     $data['value'] = [$this->fileResponse($targetFile)];
+                                } else {
+                                    $data['value'] = [];
                                 }
                             }
                         } else {
@@ -60,37 +64,67 @@ App::plugin('oblik/link-field', [
                 },
                 'settings' => function ($value = []) {
                     return $value;
+                },
+                'pages' => function ($value = []) {
+                    return array_merge([
+                        'query' => 'site.pages'
+                    ], $value);
+                },
+                'files' => function ($value = []) {
+                    return array_merge([
+                        'query' => 'site.files.add(site.index.files)'
+                    ], $value);
                 }
             ],
             'methods' => [
                 'pageResponse' => function ($page) {
-                    return $page->panelPickerData();
+                    $config = $this->pages() ?? [];
+                    $settings = array_intersect_key($config, [
+                        'image' => true,
+                        'info' => true,
+                        'text' => true
+                    ]);
+
+                    return $page->panelPickerData($settings);
                 },
                 'fileResponse' => function ($file) {
-                    return $file->panelPickerData([
-                        'text' => '{{ file.id }}'
+                    $config = $this->files() ?? [];
+                    $settings = array_intersect_key($config, [
+                        'image' => true,
+                        'info' => true,
+                        'text' => true
                     ]);
+
+                    return $file->panelPickerData($settings);
                 }
             ],
             'api' => function () {
                 return [
                     [
-                        'pattern' => '/link-files',
-                        'method' => 'GET',
-                        'action' => function () {
-                            return $this->field()->filepicker([
-                                'query' => 'site.files.add(site.index.files)',
-                                'text' => '{{ file.id }}'
-                            ]);
-                        }
-                    ],
-                    [
                         'pattern' => '/link-pages',
                         'method' => 'GET',
                         'action' => function () {
-                            return $this->field()->pagepicker([
-                                'parent' => $this->requestQuery('parent')
+                            $config = $this->field()->pages();
+                            $settings = array_merge($config, [
+                                'page' => $this->requestQuery('page'),
+                                'parent' => $this->requestQuery('parent'),
+                                'search' => $this->requestQuery('search')
                             ]);
+
+                            return $this->field()->pagepicker($settings);
+                        }
+                    ],
+                    [
+                        'pattern' => '/link-files',
+                        'method' => 'GET',
+                        'action' => function () {
+                            $config = $this->field()->files();
+                            $settings = array_merge($config, [
+                                'page'   => $this->requestQuery('page'),
+                                'search' => $this->requestQuery('search'),
+                            ]);
+
+                            return $this->field()->filepicker($settings);
                         }
                     ]
                 ];

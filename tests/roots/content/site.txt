@@ -12,7 +12,7 @@ value: home
 Filelink:
 
 type: file
-value: home/test.png
+value: home/test.svg
 
 ----
 
