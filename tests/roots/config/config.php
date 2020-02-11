@@ -2,7 +2,7 @@
 
 return [
     'debug' => true,
-    'oblik.link-field.settings' => [
+    'oblik.linkField.settings' => [
         'text' => [
             'label' => 'Test Global'
         ]

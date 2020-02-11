@@ -62,13 +62,17 @@ App::plugin('oblik/link-field', [
                 'options' => function ($value = ['url', 'page', 'file', 'email', 'tel']) {
                     return $value;
                 },
-                'settings' => function ($value = []) {
-                    $config = kirby()->option('oblik.link-field.settings');
+                'settings' => function ($value = null) {
+                    $config = kirby()->option('oblik.linkField.settings');
 
                     if (is_array($value) && is_array($config)) {
-                        $value = array_merge($config);
-                    } else if (is_bool($config)) {
-                        $value = $config;
+                        $value = array_replace_recursive($config, $value);
+                    } else if ($value === null) {
+                        if (is_bool($config)) {
+                            $value = $config;
+                        } else {
+                            $value = true;
+                        }
                     }
 
                     return $value;

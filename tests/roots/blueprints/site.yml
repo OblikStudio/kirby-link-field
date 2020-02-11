@@ -2,6 +2,7 @@ preset: page
 fields:
   pageLink:
     type: link
+    settings: false
   fileLink:
     type: link
   struct:
