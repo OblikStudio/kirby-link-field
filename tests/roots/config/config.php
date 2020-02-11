@@ -2,9 +2,16 @@
 
 return [
     'debug' => true,
-    'oblik.linkField.settings' => [
-        'text' => [
-            'label' => 'Test Global'
+    'oblik.linkField' => [
+        'options' => [
+            'url',
+            'page',
+            'file'
+        ],
+        'settings' => [
+            'text' => [
+                'label' => 'Test Global'
+            ]
         ]
     ]
 ];
