@@ -2,9 +2,11 @@
 .gitattributes export-ignore
 .editorconfig export-ignore
 
-package.json export-ignore
 package-lock.json export-ignore
+package.json export-ignore
+phpunit.xml
 webpack.config.js export-ignore
 
 app export-ignore
 docs export-ignore
+tests export-ignore
