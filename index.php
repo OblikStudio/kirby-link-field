@@ -181,10 +181,19 @@ App::plugin('oblik/link-field', [
 
             $data = $field->yaml();
 
-            return new Link([
-                'type' => $data['type'] ?? 'url',
-                'value' => $data['value'] ?? $field->value()
-            ]);
+            if (!is_array($data)) {
+                $data = [];
+            }
+
+            if (empty($data['type'])) {
+                $data['type'] = 'url';
+            }
+
+            if (empty($data['value'])) {
+                $data['value'] = $field->value();
+            }
+
+            return new Link($data);
         }
     ]
 ]);

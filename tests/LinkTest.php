@@ -97,14 +97,16 @@ final class LinkTest extends TestCase
     public function testPropertyAccess()
     {
         $link = new Link([
-            'type' => 'email',
-            'value' => 'test@example.com',
-            'text' => 'test'
+            'type' => 'url',
+            'value' => 'https://example.com',
+            'text' => 'test',
+            'foo' => 'bar'
         ]);
 
-        $this->assertEquals('email', $link->type());
-        $this->assertEquals('test@example.com', $link->value());
+        $this->assertEquals('url', $link->type());
+        $this->assertEquals('https://example.com', $link->value());
         $this->assertEquals('test', $link->text());
+        $this->assertEquals('bar', $link->foo());
         $this->assertEquals(null, $link->nonExistent());
     }
 
@@ -174,16 +176,17 @@ final class LinkTest extends TestCase
 
     public function testFieldMethod()
     {
-        $field = new Field(null, 'test', Yaml::encode([
+        $data = [
             'type' => 'url',
-            'value' => 'https://example.com'
-        ]));
+            'value' => 'https://example.com',
+            'foo' => 'bar'
+        ];
 
+        $field = new Field(null, 'test', Yaml::encode($data));
         $link = $field->toLinkObject();
 
         $this->assertInstanceOf(Link::class, $link);
-        $this->assertEquals('url', $link->type());
-        $this->assertEquals('https://example.com', $link->value());
+        $this->assertEquals($data, $link->data());
     }
 
     public function testFieldPlainURL()
