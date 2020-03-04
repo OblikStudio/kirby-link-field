@@ -148,7 +148,7 @@ final class LinkTest extends TestCase
             'value' => 'https://example.com',
             'text' => 'my text',
             'popup' => true,
-            'fragment' => 'foo'
+            'hash' => 'foo'
         ]);
 
         $html = $link->tag([
@@ -156,7 +156,7 @@ final class LinkTest extends TestCase
         ]);
 
         $this->assertEquals(
-            '<a href="https://example.com" rel="noopener noreferrer" target="_blank" testattr="test">my text</a>',
+            '<a href="https://example.com#foo" rel="noopener noreferrer" target="_blank" testattr="test">my text</a>',
             $html
         );
     }
