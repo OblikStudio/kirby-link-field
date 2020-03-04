@@ -175,16 +175,16 @@ App::plugin('oblik/link-field', [
     ],
     'fieldMethods' => [
         'toLinkObject' => function ($field) {
-            $data = $field->yaml();
-
-            if (empty($data['type']) || empty($data['value'])) {
-                $data = [
-                    'type' => 'url',
-                    'value' => $field->value()
-                ];
+            if ($field->isEmpty()) {
+                return null;
             }
 
-            return new Link($data);
+            $data = $field->yaml();
+
+            return new Link([
+                'type' => $data['type'] ?? 'url',
+                'value' => $data['value'] ?? $field->value()
+            ]);
         }
     ]
 ]);

@@ -8,6 +8,15 @@ use PHPUnit\Framework\TestCase;
 
 final class LinkTest extends TestCase
 {
+    public function testEmptyField()
+    {
+        $field = new Field(null, 'test', null);
+        $field2 = new Field(null, 'test', '');
+
+        $this->assertEquals(null, $field->toLinkObject());
+        $this->assertEquals(null, $field2->toLinkObject());
+    }
+
     public function testParsesData()
     {
         $field = new Field(null, 'link', "type: url\nvalue: https://example.com");
