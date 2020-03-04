@@ -118,6 +118,7 @@ final class LinkTest extends TestCase
         $this->assertEquals($link->type(), 'email');
         $this->assertEquals($link->value(), 'test@example.com');
         $this->assertEquals($link->text(), 'test');
+        $this->assertEquals($link->nonExistent(), null);
     }
 
     public function testCastToString()

@@ -39,7 +39,7 @@ class Link
 
     function __call($name, $arguments = [])
     {
-        return $this->$name;
+        return $this->$name ?? null;
     }
 
     function __toString()
