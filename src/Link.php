@@ -120,6 +120,9 @@ class Link
 
     public function tag($attr = [])
     {
+        // href is null - probably due to page no longer found (slug change); fail silently
+        if (is_null($this->href())) return;
+        
         return Html::a($this->href(), $this->title(), $this->attrData($attr));
     }
 }
