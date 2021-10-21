@@ -37,7 +37,7 @@ class Link
         return $this->href();
     }
 
-    public function title()
+    public function title(string $fallback = null)
     {
         $text = $this->text();
 
@@ -58,7 +58,7 @@ class Link
         }
 
         if (empty($text)) {
-            $text = $this->value();
+            $text = $fallback ?? $this->value();
         }
 
         return $text;
@@ -118,11 +118,8 @@ class Link
         return Html::attr($data);
     }
 
-    public function tag($attr = [])
+    public function tag($attr = [], string $fallbackTitle = null)
     {
-        // href is null - probably due to page no longer found (slug change); fail silently
-        if (is_null($this->href())) return;
-        
-        return Html::a($this->href(), $this->title(), $this->attrData($attr));
+        return Html::a($this->href(), $this->title($fallbackTitle), $this->attrData($attr));
     }
 }
