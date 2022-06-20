@@ -1,2 +1,11 @@
-node_modules/
-vendor/
+/kirby/
+/media/
+/node_modules/
+/site/accounts/
+/site/sessions/
+/vendor/
+
+/.php-cs-fixer.cache
+/.phpunit.result.cache
+
+.lock

@@ -1,0 +1,10 @@
+Title: Kirby Link Field
+
+----
+
+Test:
+
+type: url
+value: https://example.com/
+text: Click here!
+popup: true

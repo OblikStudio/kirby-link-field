@@ -68,7 +68,7 @@ settings: false
 
 You could also apply such settings globally:
 
-*config/config.php*
+_config/config.php_
 
 ```php
 return [
@@ -108,7 +108,7 @@ fields:
         cover: true
     files:
       query: site.files
-      text: '{{ file.id }}'
+      text: "{{ file.id }}"
 ```
 
 ## Usage
@@ -118,7 +118,7 @@ To render the links, use the provided `toLinkObject()` method. It returns an ins
 Let's say you have a field with the following values:
 
 ```
-Myfield: 
+Myfield:
 
 type: page
 value: home
@@ -176,7 +176,13 @@ href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank"
 Returns a full `<a>` tag with merged attributes from the optional `$attributes`:
 
 ```html
-<a href="http://localhost/home#heading-1" rel="noopener noreferrer" target="_blank">My Text</a>
+<a
+  href="http://localhost/home#heading-1"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  My Text
+</a>
 ```
 
 ### `$link->title()`
