@@ -1,0 +1,8 @@
+/kirby/
+/media/
+/vendor/
+
+/composer.lock
+/index.css
+/index.js
+/package-lock.json
