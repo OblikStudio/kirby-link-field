@@ -1,1 +1,1 @@
-<?= site()->test()->toLinkObject()->tag() ?>
+<?= site()->test()->toLinkObject()->tag();
