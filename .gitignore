@@ -4,3 +4,5 @@
 /site/accounts/
 /site/sessions/
 /vendor/
+
+/.phpunit.result.cache
