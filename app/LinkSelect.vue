@@ -112,8 +112,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
-/deep/ .k-field-header {
-  display: none; // hides the Select buttons
+<style scoped>
+::v-deep .k-field-header {
+  display: none; /* hides the Select buttons */
 }
 </style>
