@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f2991ee283010cae3b5652701ad79570",
+    "content-hash": "79540f878dcf3035e16d4fd98048a8f1",
     "packages": [
         {
             "name": "claviska/simpleimage",
@@ -945,43 +945,6 @@
                 "php"
             ],
             "time": "2022-05-31T20:59:12+00:00"
-        },
-        {
-            "name": "oblik/kirby-tester",
-            "version": "1.2.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/OblikStudio/kirby-tester.git",
-                "reference": "3b5918b61751b9ed0e1b2d02e5ef4bb8a931e5bf"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/OblikStudio/kirby-tester/zipball/3b5918b61751b9ed0e1b2d02e5ef4bb8a931e5bf",
-                "reference": "3b5918b61751b9ed0e1b2d02e5ef4bb8a931e5bf",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Oblik\\KirbyTester\\": "src/"
-                },
-                "files": [
-                    "index.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Hristiyan Dodov",
-                    "email": "h.dodov@gmail.com",
-                    "homepage": "https://dodov.me/"
-                }
-            ],
-            "description": "Utility for loading Kirby and switching roots while testing.",
-            "time": "2019-09-10T09:56:50+00:00"
         },
         {
             "name": "phar-io/manifest",

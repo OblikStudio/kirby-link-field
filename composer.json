@@ -15,8 +15,7 @@
     "getkirby/composer-installer": "^1.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^9.0",
-    "oblik/kirby-tester": "^1.2"
+    "phpunit/phpunit": "^9.0"
   },
   "extra": {
     "installer-name": "link-field"
