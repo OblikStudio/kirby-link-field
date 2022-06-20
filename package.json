@@ -1,35 +1,35 @@
 {
-  "name": "kirby-link-field",
-  "version": "2.0.1",
-  "main": "index.js",
-  "scripts": {
-    "dev": "kirbyup app/index.js --watch",
-    "build": "kirbyup app/index.js",
-    "fix": "prettier . --write"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/OblikStudio/kirby-link-field.git"
-  },
-  "keywords": [
-    "kirby",
-    "link",
-    "field",
-    "panel",
-    "url",
-    "href"
-  ],
-  "author": "Hristiyan Dodov",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/OblikStudio/kirby-link-field/issues"
-  },
-  "homepage": "https://github.com/OblikStudio/kirby-link-field#readme",
-  "devDependencies": {
-    "kirbyup": "^1.0.2",
-    "prettier": "^2.7.1"
-  },
-  "prettier": {
-    "htmlWhitespaceSensitivity": "ignore"
-  }
+	"name": "kirby-link-field",
+	"version": "2.0.1",
+	"main": "index.js",
+	"scripts": {
+		"dev": "kirbyup app/index.js --watch",
+		"build": "kirbyup app/index.js",
+		"fix": "prettier . --write"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/OblikStudio/kirby-link-field.git"
+	},
+	"keywords": [
+		"kirby",
+		"link",
+		"field",
+		"panel",
+		"url",
+		"href"
+	],
+	"author": "Hristiyan Dodov",
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/OblikStudio/kirby-link-field/issues"
+	},
+	"homepage": "https://github.com/OblikStudio/kirby-link-field#readme",
+	"devDependencies": {
+		"kirbyup": "^1.0.2",
+		"prettier": "^2.7.1"
+	},
+	"prettier": {
+		"htmlWhitespaceSensitivity": "ignore"
+	}
 }
