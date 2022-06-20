@@ -7,12 +7,9 @@
     {
       "name": "Hristiyan Dodov",
       "email": "h.dodov@gmail.com",
-      "homepage": "https://dodov.me/"
+      "homepage": "https://dodov.dev/"
     }
   ],
-  "scripts": {
-    "test": "phpunit"
-  },
   "require": {
     "getkirby/cms": "^3.2",
     "getkirby/composer-installer": "^1.1"
