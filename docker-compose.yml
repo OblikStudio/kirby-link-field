@@ -18,3 +18,9 @@ services:
       - ./:/var/www/html
     links:
       - php
+  phpunit:
+    image: php:7.4-cli
+    volumes:
+      - ./:/app
+    working_dir: /app
+    entrypoint: vendor/bin/phpunit
