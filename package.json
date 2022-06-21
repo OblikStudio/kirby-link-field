@@ -5,7 +5,11 @@
 	"scripts": {
 		"dev": "kirbyup app/index.js --watch",
 		"build": "kirbyup app/index.js",
-		"fix": "prettier . --write"
+		"fix": "prettier . --write",
+		"start": "docker-compose up php nginx",
+		"composer": "docker-compose run composer install --ignore-platform-reqs",
+		"php-cs-fixer": "docker-compose run composer vendor/bin/php-cs-fixer fix",
+		"phpunit": "docker-compose run phpunit"
 	},
 	"repository": {
 		"type": "git",

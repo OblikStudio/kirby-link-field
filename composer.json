@@ -10,9 +10,6 @@
 			"homepage": "https://dodov.dev/"
 		}
 	],
-	"scripts": {
-		"fix": "php-cs-fixer fix"
-	},
 	"require": {
 		"getkirby/cms": "^3.2",
 		"getkirby/composer-installer": "^1.1"
