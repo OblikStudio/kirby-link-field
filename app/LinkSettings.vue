@@ -1,12 +1,14 @@
 <template>
-	<section class="k-structure-form">
-		<k-form
-			class="k-structure-form-fields"
-			v-model="data"
-			:fields="fields"
-			@input="$emit('input', data)"
-		/>
-	</section>
+	<div class="k-structure-form">
+		<section>
+			<k-form
+				class="k-structure-form-fields"
+				v-model="data"
+				:fields="fields"
+				@input="$emit('input', data)"
+			/>
+		</section>
+	</div>
 </template>
 
 <script>
