@@ -11,7 +11,7 @@
 		}
 	],
 	"require": {
-		"getkirby/cms": "^3.2",
+		"getkirby/cms": "^3.7.0-rc.2",
 		"getkirby/composer-installer": "^1.1"
 	},
 	"require-dev": {
@@ -20,5 +20,10 @@
 	},
 	"extra": {
 		"installer-name": "link-field"
+	},
+	"config": {
+		"allow-plugins": {
+			"getkirby/composer-installer": true
+		}
 	}
 }
