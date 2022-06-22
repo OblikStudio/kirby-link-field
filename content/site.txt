@@ -4,7 +4,19 @@ Title: Kirby Link Field
 
 Test:
 
-type: url
-value: https://example.com/
+type: file
 text: Click here!
+value: test.png
 popup: true
+
+----
+
+Structure:
+
+- 
+  link:
+    type: page
+    value: home
+    text: Link to page!
+  pages:
+    - home

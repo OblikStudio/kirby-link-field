@@ -1,5 +1,11 @@
 <?php
 
 return [
-	'debug' => true
+	'debug' => true,
+	'panel' => [
+		'dev' => true
+	],
+	'content' => [
+		'locking' => false
+	]
 ];
