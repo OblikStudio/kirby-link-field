@@ -107,7 +107,7 @@ App::plugin('oblik/link-field', [
 						'text' => true
 					]);
 
-					return $page->panelPickerData($settings);
+					return $page->panel()->pickerData($settings);
 				},
 				'fileResponse' => function ($file) {
 					$config = $this->files() ?? [];
@@ -117,7 +117,7 @@ App::plugin('oblik/link-field', [
 						'text' => true
 					]);
 
-					return $file->panelPickerData($settings);
+					return $file->panel()->pickerData($settings);
 				}
 			],
 			'api' => function () {
