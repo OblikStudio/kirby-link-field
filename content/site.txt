@@ -2,12 +2,10 @@ Title: Kirby Link Field
 
 ----
 
-Test:
+Link:
 
-type: file
-text: Click here!
-value: test.png
-popup: true
+type: page
+value: test/nested
 
 ----
 
@@ -15,8 +13,29 @@ Structure:
 
 - 
   link:
+    type: url
+    value: https://example.com
+- 
+  link:
+    type: url
+    value: https://example.com/with-text
+    text: URL with text!
+- 
+  link:
     type: page
     value: home
-    text: Link to page!
+- 
+  link:
+    type: file
+    text: Link to page!!!
+    value: test.png
   pages:
     - home
+- 
+  link:
+    type: email
+    value: john@example.com
+- 
+  link:
+    type: tel
+    value: "0123456789"

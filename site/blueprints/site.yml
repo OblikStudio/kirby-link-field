@@ -1,8 +1,8 @@
 preset: page
 fields:
-  test:
+  link:
     type: link
+    limit: 1 # should limit results in page and file pickers
   structure:
     fields:
       link: true
-      pages: true
