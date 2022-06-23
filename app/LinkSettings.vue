@@ -15,7 +15,7 @@
 export default {
 	props: {
 		value: Object,
-		types: Object,
+		types: [Object, Boolean],
 	},
 	data: function () {
 		return {

@@ -56,7 +56,7 @@ export default {
 		required: Boolean,
 
 		linkTypes: Array,
-		settings: Object,
+		settings: [Object, Boolean],
 	},
 	data: function () {
 		return {
