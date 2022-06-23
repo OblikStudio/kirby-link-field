@@ -9,6 +9,9 @@ load([
 use Kirby\Cms\App;
 use Kirby\Data\Yaml;
 
+$pagesConfig = include kirby()->root('kirby') . '/config/fields/pages.php';
+$filesConfig = include kirby()->root('kirby') . '/config/fields/files.php';
+
 App::plugin('oblik/link-field', [
 	'fields' => [
 		'link' => [
@@ -99,55 +102,20 @@ App::plugin('oblik/link-field', [
 				}
 			],
 			'methods' => [
-				'pageResponse' => function ($page) {
-					$config = $this->pages() ?? [];
-					$settings = array_intersect_key($config, [
-						'image' => true,
-						'info' => true,
-						'text' => true
-					]);
-
-					return $page->panel()->pickerData($settings);
-				},
-				'fileResponse' => function ($file) {
-					$config = $this->files() ?? [];
-					$settings = array_intersect_key($config, [
-						'image' => true,
-						'info' => true,
-						'text' => true
-					]);
-
-					return $file->panel()->pickerData($settings);
-				}
+				'pageResponse' => $pagesConfig['methods']['pageResponse'],
+				'fileResponse' => $filesConfig['methods']['fileResponse']
 			],
-			'api' => function () {
+			'api' => function () use ($pagesConfig, $filesConfig) {
 				return [
 					[
 						'pattern' => '/link-pages',
 						'method' => 'GET',
-						'action' => function () {
-							$config = $this->field()->pages();
-							$settings = array_merge($config, [
-								'page' => $this->requestQuery('page'),
-								'parent' => $this->requestQuery('parent'),
-								'search' => $this->requestQuery('search')
-							]);
-
-							return $this->field()->pagepicker($settings);
-						}
+						'action' => $pagesConfig['api']()[0]['action']
 					],
 					[
 						'pattern' => '/link-files',
 						'method' => 'GET',
-						'action' => function () {
-							$config = $this->field()->files();
-							$settings = array_merge($config, [
-								'page'   => $this->requestQuery('page'),
-								'search' => $this->requestQuery('search'),
-							]);
-
-							return $this->field()->filepicker($settings);
-						}
+						'action' => $filesConfig['api']()[0]['action']
 					]
 				];
 			},
