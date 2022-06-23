@@ -13,7 +13,7 @@
 			v-if="isMainScreen"
 			v-model="link"
 			:width="width"
-			:options="options"
+			:linkTypes="linkTypes"
 			:endpoints="endpoints"
 			@input="emitInput"
 		></LinkSelect>
@@ -55,7 +55,7 @@ export default {
 		disabled: Boolean,
 		required: Boolean,
 
-		options: Array,
+		linkTypes: Array,
 		settings: Object,
 	},
 	data: function () {

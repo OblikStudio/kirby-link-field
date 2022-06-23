@@ -55,7 +55,7 @@
 export default {
 	props: {
 		value: Object,
-		options: Array,
+		linkTypes: Array,
 		endpoints: Object,
 		width: String,
 	},
@@ -84,7 +84,7 @@ export default {
 			};
 		},
 		types: function () {
-			return this.options.map(
+			return this.linkTypes.map(
 				function (type) {
 					return {
 						value: type,

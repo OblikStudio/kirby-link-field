@@ -59,7 +59,7 @@ App::plugin('oblik/link-field', [
 
 					return $data;
 				},
-				'options' => function ($value = null) {
+				'linkTypes' => function ($value = null) {
 					if (!is_array($value)) {
 						$config = kirby()->option('oblik.linkField.options');
 
