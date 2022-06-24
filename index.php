@@ -20,6 +20,24 @@ App::plugin('oblik/link-field', [
 			'file',
 			'email',
 			'tel'
+		],
+		'settings' => [
+			'text' => [
+				'width' => '1/2',
+				'type' => 'text',
+				'label' => '$label.text',
+			],
+			'popup' => [
+				'width' => '1/4',
+				'type' => 'toggle',
+				'label' => '$label.popup',
+			],
+			'hash' => [
+				'width' => '1/4',
+				'type' => 'text',
+				'label' => '$label.fragment',
+				'placeholder' => '$placeholder.elementid',
+			],
 		]
 	],
 	'fields' => [
@@ -83,12 +101,16 @@ App::plugin('oblik/link-field', [
 
 					if (is_array($value) && is_array($config)) {
 						$value = array_replace_recursive($config, $value);
-					} elseif ($value === null) {
-						if (is_bool($config)) {
-							$value = $config;
-						} else {
-							$value = true;
-						}
+					} else {
+						$value = $config;
+					}
+
+					if (is_array($value)) {
+						$value = array_filter($value);
+					}
+
+					if (empty($value)) {
+						$value = null;
 					}
 
 					return $value;

@@ -20,7 +20,7 @@
 		<LinkSettings
 			v-else
 			v-model="settingsData"
-			:types="settings"
+			:settings="settings"
 			@input="emitInput"
 		></LinkSettings>
 	</k-field>
@@ -46,7 +46,7 @@ export default {
 		required: Boolean,
 
 		linkTypes: Array,
-		settings: [Object, Boolean],
+		settings: Object,
 	},
 	data: function () {
 		return {
@@ -82,7 +82,11 @@ export default {
 			return this.screen === "link";
 		},
 		hasSettings: function () {
-			return this.settings !== false;
+			return (
+				this.settings &&
+				typeof this.settings === "object" &&
+				Object.keys(this.settings).length > 0
+			);
 		},
 	},
 	methods: {

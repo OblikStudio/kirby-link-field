@@ -4,7 +4,7 @@
 			<k-form
 				class="k-structure-form-fields"
 				v-model="data"
-				:fields="fields"
+				:fields="settings"
 				@input="$emit('input', data)"
 			/>
 		</section>
@@ -15,51 +15,21 @@
 export default {
 	props: {
 		value: Object,
-		types: [Object, Boolean],
+		settings: Object,
 	},
 	data: function () {
 		return {
 			data: this.value,
 		};
 	},
-	computed: {
-		fields: function () {
-			var value = {};
-			var fields = {
-				text: {
-					width: "1/2",
-					type: "text",
-					label: this.$t("label.text"),
-				},
-				popup: {
-					width: "1/4",
-					type: "toggle",
-					label: this.$t("label.popup"),
-				},
-				hash: {
-					width: "1/4",
-					type: "text",
-					label: this.$t("label.fragment"),
-					placeholder: this.$t("placeholder.elementid"),
-				},
-			};
-
-			// Merge defaults with defined fields in their order.
-			for (var k in this.types) {
-				if (fields[k] && this.types[k]) {
-					value[k] = Object.assign(fields[k], this.types[k]);
-				}
+	created: function () {
+		for (let fieldName in this.settings) {
+			for (let option in this.settings[fieldName]) {
+				let value = this.settings[fieldName][option];
+				if (typeof value !== "string" || value[0] !== "$") continue;
+				this.settings[fieldName][option] = this.$t(value.substr(1));
 			}
-
-			// Add any missing default fields that are not explicitly disabled.
-			for (var k in fields) {
-				if (!value[k] && this.types[k] !== false) {
-					value[k] = fields[k];
-				}
-			}
-
-			return value;
-		},
+		}
 	},
 	watch: {
 		value: function (value) {
