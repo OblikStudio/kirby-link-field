@@ -36,17 +36,7 @@ export default {
 		LinkSettings,
 	},
 	props: {
-		value: {
-			type: Object,
-			default: function () {
-				// If the field is inside a Structure, it'll have an `undefined` initial
-				// value, so this gives a valid default value.
-				return {
-					type: "url",
-					value: undefined,
-				};
-			},
-		},
+		value: Object,
 		endpoints: Object,
 
 		width: String,
@@ -102,10 +92,22 @@ export default {
 		switchScreen: function () {
 			this.screen = this.isMainScreen ? "options" : "link";
 		},
+		validate: function () {
+			let type = this.data?.type;
+			if (!type || !this.linkTypes.includes(type)) {
+				this.data = {
+					type: this.linkTypes[0] || "url",
+				};
+			}
+		},
+	},
+	created: function () {
+		this.validate();
 	},
 	watch: {
 		value: function (value) {
 			this.data = Object.assign({}, value);
+			this.validate();
 		},
 	},
 };

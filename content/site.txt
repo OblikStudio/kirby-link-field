@@ -4,8 +4,12 @@ Title: Kirby Link Field
 
 Link:
 
-type: page
-value: test/nested
+type: file
+value: test.png
+
+----
+
+Url: https://example.com
 
 ----
 
@@ -27,10 +31,7 @@ Structure:
 - 
   link:
     type: file
-    text: Link to page!!!
     value: test.png
-  pages:
-    - home
 - 
   link:
     type: email

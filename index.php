@@ -13,6 +13,15 @@ $pagesConfig = include kirby()->root('kirby') . '/config/fields/pages.php';
 $filesConfig = include kirby()->root('kirby') . '/config/fields/files.php';
 
 App::plugin('oblik/link-field', [
+	'options' => [
+		'linkTypes' => [
+			'url',
+			'page',
+			'file',
+			'email',
+			'tel'
+		]
+	],
 	'fields' => [
 		'link' => [
 			'mixins' => ['pagepicker', 'filepicker'],
@@ -26,9 +35,9 @@ App::plugin('oblik/link-field', [
 						$data = $input;
 					}
 
-					if (empty($data['type'])) {
+					if (empty($data['type']) && !empty($input)) {
 						// Handles cases where the field was previously of type
-						// `url` and was not correctly formatted.
+						// `url` and still has `"http://..."` as value.
 						$data = [
 							'type' => 'url',
 							'value' => $input
@@ -64,19 +73,13 @@ App::plugin('oblik/link-field', [
 				},
 				'linkTypes' => function ($value = null) {
 					if (!is_array($value)) {
-						$config = kirby()->option('oblik.linkField.options');
-
-						if (is_array($config)) {
-							$value = $config;
-						} else {
-							$value = ['url', 'page', 'file', 'email', 'tel'];
-						}
+						$value = kirby()->option('oblik.link-field.linkTypes');
 					}
 
 					return $value;
 				},
 				'settings' => function ($value = null) {
-					$config = kirby()->option('oblik.linkField.settings');
+					$config = kirby()->option('oblik.link-field.settings');
 
 					if (is_array($value) && is_array($config)) {
 						$value = array_replace_recursive($config, $value);
@@ -120,11 +123,13 @@ App::plugin('oblik/link-field', [
 				];
 			},
 			'save' => function ($data) {
-				$data = array_filter($data);
-				$type = $data['type'] ?? null;
-				$value = $data['value'] ?? null;
+				if (is_array($data)) {
+					$data = array_filter($data);
+					$type = $data['type'] ?? null;
+					$value = $data['value'] ?? null;
+				}
 
-				if (!$type || !$value) {
+				if (empty($type) || empty($value)) {
 					return null;
 				}
 
