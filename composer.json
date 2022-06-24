@@ -1,15 +1,29 @@
 {
 	"name": "oblik/kirby-link-field",
 	"description": "Kirby 3 field for all types of links.",
-	"type": "kirby-plugin",
 	"license": "MIT",
+	"version": "4.0.0-rc.1",
+	"type": "kirby-plugin",
+	"keywords": [
+		"kirby",
+		"kirby-plugin"
+	],
 	"authors": [
+		{
+			"name": "Oblik Studio",
+			"email": "hello@oblik.studio",
+			"homepage": "https://oblik.studio/"
+		},
 		{
 			"name": "Hristiyan Dodov",
 			"email": "h.dodov@gmail.com",
 			"homepage": "https://dodov.dev/"
 		}
 	],
+	"support": {
+		"issues": "https://github.com/OblikStudio/kirby-link-field/issues",
+		"source": "https://github.com/OblikStudio/kirby-link-field"
+	},
 	"require": {
 		"getkirby/cms": "^3.7.0-rc.2",
 		"getkirby/composer-installer": "^1.1"
