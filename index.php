@@ -127,10 +127,18 @@ App::plugin('oblik/link-field', [
 			],
 			'methods' => [
 				'pageResponse' => function ($page) {
-					return $page->panel()->pickerData($this->pages() ?? []);
+					$params = array_replace($this->pages() ?? [], [
+						'model' => $page
+					]);
+
+					return $page->panel()->pickerData($params);
 				},
 				'fileResponse' => function ($file) {
-					return $file->panel()->pickerData($this->files() ?? []);
+					$params = array_replace($this->files() ?? [], [
+						'model' => $file
+					]);
+
+					return $file->panel()->pickerData($params);
 				}
 			],
 			'api' => function () {
