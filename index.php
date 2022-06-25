@@ -9,9 +9,6 @@ load([
 use Kirby\Cms\App;
 use Kirby\Data\Yaml;
 
-$pagesConfig = include kirby()->root('kirby') . '/config/fields/pages.php';
-$filesConfig = include kirby()->root('kirby') . '/config/fields/files.php';
-
 App::plugin('oblik/link-field', [
 	'options' => [
 		'linkTypes' => [
@@ -117,30 +114,51 @@ App::plugin('oblik/link-field', [
 				},
 				'pages' => function ($value = []) {
 					return array_merge([
-						'query' => 'site.pages'
+						'query' => 'site.pages',
+						'search' => true
 					], $value);
 				},
 				'files' => function ($value = []) {
 					return array_merge([
-						'query' => 'site.files.add(site.index.files)'
+						'query' => 'site.files.add(site.index.files)',
+						'search' => true
 					], $value);
 				}
 			],
 			'methods' => [
-				'pageResponse' => $pagesConfig['methods']['pageResponse'],
-				'fileResponse' => $filesConfig['methods']['fileResponse']
+				'pageResponse' => function ($page) {
+					return $page->panel()->pickerData($this->pages() ?? []);
+				},
+				'fileResponse' => function ($file) {
+					return $file->panel()->pickerData($this->files() ?? []);
+				}
 			],
-			'api' => function () use ($pagesConfig, $filesConfig) {
+			'api' => function () {
 				return [
 					[
 						'pattern' => '/link-pages',
 						'method' => 'GET',
-						'action' => $pagesConfig['api']()[0]['action']
+						'action' => function () {
+							$params = array_replace($this->field()->pages(), [
+								'page' => $this->requestQuery('page'),
+								'parent' => $this->requestQuery('parent'),
+								'search' => $this->requestQuery('search')
+							]);
+
+							return $this->field()->pagepicker($params);
+						}
 					],
 					[
 						'pattern' => '/link-files',
 						'method' => 'GET',
-						'action' => $filesConfig['api']()[0]['action']
+						'action' => function () {
+							$params = array_merge($this->field()->files(), [
+								'page' => $this->requestQuery('page'),
+								'search' => $this->requestQuery('search'),
+							]);
+
+							return $this->field()->filepicker($params);
+						}
 					]
 				];
 			},

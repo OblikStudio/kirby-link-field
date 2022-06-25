@@ -2,13 +2,17 @@ preset: page
 fields:
   link:
     type: link
-    limit: 1 # should limit results in page and file pickers
     linkTypes:
       - page
-  url:
-    # test field that was previously of type `"urL"` and has a plain
-    # `"http://..."` value
-    type: link
+      - file
+    pages:
+      limit: 1
+      image:
+        cover: true
+    files:
+      search: false
+      image:
+        cover: true
   structure:
     fields:
       link: true

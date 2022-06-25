@@ -20,7 +20,7 @@
 			<k-pages-field
 				v-else-if="data.type === 'page'"
 				v-model="data.value"
-				:search="true"
+				v-bind="pages"
 				:endpoints="{
 					field: this.endpoints.field + '/link-pages',
 				}"
@@ -29,7 +29,7 @@
 			<k-files-field
 				v-else-if="data.type === 'file'"
 				v-model="data.value"
-				:search="true"
+				v-bind="files"
 				:endpoints="{
 					field: this.endpoints.field + '/link-files',
 				}"
@@ -55,9 +55,12 @@
 export default {
 	props: {
 		value: Object,
-		linkTypes: Array,
 		endpoints: Object,
 		width: String,
+
+		linkTypes: Array,
+		pages: Object,
+		files: Object,
 	},
 	data: function () {
 		return {

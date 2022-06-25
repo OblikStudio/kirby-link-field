@@ -13,8 +13,10 @@
 			v-if="isMainScreen"
 			v-model="link"
 			:width="width"
-			:linkTypes="linkTypes"
 			:endpoints="endpoints"
+			:linkTypes="linkTypes"
+			:pages="pages"
+			:files="files"
 			@input="emitInput"
 		></LinkSelect>
 		<LinkSettings
@@ -47,6 +49,8 @@ export default {
 
 		linkTypes: Array,
 		settings: Object,
+		pages: Object,
+		files: Object,
 	},
 	data: function () {
 		return {

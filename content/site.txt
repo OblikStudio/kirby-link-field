@@ -4,12 +4,8 @@ Title: Kirby Link Field
 
 Link:
 
-type: file
-value: test.png
-
-----
-
-Url: https://example.com
+type: page
+value: test
 
 ----
 
