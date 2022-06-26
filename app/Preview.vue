@@ -18,7 +18,7 @@
 				:href="linkValue"
 				target="_blank"
 				class="k-link"
-				@click="handleClick"
+				@click="handleLinkClick"
 			>
 				{{ value.text || linkValue }}
 			</a>
@@ -42,17 +42,18 @@ export default {
 		field: Object,
 	},
 	computed: {
-		linkType: function () {
-			return this.value && this.value.type;
+		linkType() {
+			return this.value.type;
 		},
-		linkValue: function () {
-			return this.value && this.value.value;
+		linkValue() {
+			return this.value.value;
 		},
 	},
 	methods: {
 		isArray: Array.isArray,
-		handleClick: function (event) {
-			// Prevent the structure from expanding.
+		handleLinkClick(event) {
+			// Prevent the structure from expanding when the user clicks on a
+			// preview link.
 			event.stopImmediatePropagation();
 		},
 	},

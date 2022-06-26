@@ -77,24 +77,23 @@ export default {
 		linkValue() {
 			return this.value.value;
 		},
-		showSelect: function () {
+		showSelect() {
 			return this.linkTypeOptions.length > 1;
 		},
-		widthPercent: function () {
-			var split = this.width.split("/");
-			var numerator = split[0] || 1;
-			var denominator = split[1] || 1;
+		widthPercent() {
+			let split = this.width.split("/");
+			let numerator = split[0] || 1;
+			let denominator = split[1] || 1;
 			return (numerator / denominator) * 100;
 		},
-		uiWidth: function () {
-			var large = this.widthPercent >= 50;
-
+		uiWidth() {
+			let isLarge = this.widthPercent >= 50;
 			return {
-				select: large ? "1/4" : "1/1",
-				field: this.showSelect ? (large ? "3/4" : "1/1") : null,
+				select: isLarge ? "1/4" : "1/1",
+				field: this.showSelect ? (isLarge ? "3/4" : "1/1") : null,
 			};
 		},
-		linkTypeOptions: function () {
+		linkTypeOptions() {
 			return this.linkTypes.map((type) => ({
 				value: type,
 				text: this.$t(type),

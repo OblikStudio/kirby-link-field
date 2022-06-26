@@ -1,5 +1,3 @@
-/* global panel */
-
 import App from "./App.vue";
 import Preview from "./Preview.vue";
 

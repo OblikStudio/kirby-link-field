@@ -53,7 +53,7 @@ export default {
 		pages: Object,
 		files: Object,
 	},
-	data: function () {
+	data() {
 		return {
 			screen: "link",
 		};
@@ -66,7 +66,7 @@ export default {
 
 			return { ...this.value };
 		},
-		isMainScreen: function () {
+		isMainScreen() {
 			return this.screen === "link";
 		},
 	},

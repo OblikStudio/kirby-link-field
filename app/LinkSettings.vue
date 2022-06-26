@@ -17,7 +17,10 @@ export default {
 		value: Object,
 		settings: Object,
 	},
-	created: function () {
+	created() {
+		// Settings blueprint is defined in PHP and translatable values are set
+		// to their translation key, prefixed with `$`. Here, they're replaced
+		// with the actual translations.
 		for (let fieldName in this.settings) {
 			for (let option in this.settings[fieldName]) {
 				let value = this.settings[fieldName][option];
