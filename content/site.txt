@@ -5,7 +5,13 @@ Title: Kirby Link Field
 Link:
 
 type: page
-value: test
+
+----
+
+Requiredlink:
+
+type: file
+value: test/foo.png
 
 ----
 

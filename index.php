@@ -50,9 +50,9 @@ App::plugin('oblik/link-field', [
 						$data = $input;
 					}
 
-					if (empty($data['type']) && !empty($input)) {
+					if (empty($data['type']) && is_string($input) && strpos($input, 'http') === 0) {
 						// Handles cases where the field was previously of type
-						// `url` and still has `"http://..."` as value.
+						// `url` and still a URL as plain value.
 						$data = [
 							'type' => 'url',
 							'value' => $input
@@ -82,6 +82,13 @@ App::plugin('oblik/link-field', [
 						} else {
 							// Value came from the panel and is a serialized Page or File.
 						}
+					}
+
+					if (empty($data)) {
+						// Value could be an empty array when the field is empty
+						// in the TXT file and is YAML-decoded, so make sure to
+						// not return `[]`.
+						return '';
 					}
 
 					return $data;
@@ -170,20 +177,20 @@ App::plugin('oblik/link-field', [
 					]
 				];
 			},
+			'isEmpty' => function ($input) {
+				// Validates the value when `required: true`.
+				return !($input['value'] ?? null);
+			},
 			'save' => function ($data) {
-				if (is_array($data)) {
-					$data = array_filter($data);
-					$type = $data['type'] ?? null;
-					$value = $data['value'] ?? null;
-				}
-
-				if (empty($type) || empty($value)) {
-					return null;
-				}
+				$value = $data['value'] ?? null;
 
 				// Store just the id of a file or a page.
-				if ($type === 'page' || $type === 'file') {
+				if (is_array($value)) {
 					$data['value'] = $value[0]['id'] ?? null;
+				}
+
+				if (is_array($data)) {
+					$data = array_filter($data);
 				}
 
 				return $data;

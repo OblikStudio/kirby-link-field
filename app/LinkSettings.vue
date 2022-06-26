@@ -3,9 +3,9 @@
 		<section>
 			<k-form
 				class="k-structure-form-fields"
-				v-model="data"
+				v-model="value"
 				:fields="settings"
-				@input="$emit('input', data)"
+				@input="handleInput"
 			/>
 		</section>
 	</div>
@@ -17,11 +17,6 @@ export default {
 		value: Object,
 		settings: Object,
 	},
-	data: function () {
-		return {
-			data: this.value,
-		};
-	},
 	created: function () {
 		for (let fieldName in this.settings) {
 			for (let option in this.settings[fieldName]) {
@@ -31,9 +26,9 @@ export default {
 			}
 		}
 	},
-	watch: {
-		value: function (value) {
-			Object.assign(this.data, value);
+	methods: {
+		handleInput(value) {
+			this.$emit("input", value);
 		},
 	},
 };

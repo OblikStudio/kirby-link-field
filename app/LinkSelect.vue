@@ -3,49 +3,57 @@
 		<k-column v-if="showSelect" :width="uiWidth.select">
 			<k-select-field
 				type="select"
-				v-model="data.type"
-				:options="types"
+				:value="linkType"
+				:options="linkTypeOptions"
 				:empty="false"
-				@input="inputType"
+				@input="handleTypeSelect"
 			/>
 		</k-column>
 
 		<k-column :width="uiWidth.field">
 			<k-url-field
-				v-if="data.type === 'url'"
-				v-model="data.value"
+				v-if="linkType === 'url'"
+				:value="linkValue"
+				@input="handleValueInput"
 				placeholder="https://example.com/"
 			/>
 
 			<k-pages-field
-				v-else-if="data.type === 'page'"
-				v-model="data.value"
+				v-else-if="linkType === 'page'"
 				v-bind="pages"
+				:value="linkValue"
 				:endpoints="{
 					field: this.endpoints.field + '/link-pages',
 				}"
+				@input="handleValueInput"
 			></k-pages-field>
 
 			<k-files-field
-				v-else-if="data.type === 'file'"
-				v-model="data.value"
+				v-else-if="linkType === 'file'"
 				v-bind="files"
+				:value="linkValue"
 				:endpoints="{
 					field: this.endpoints.field + '/link-files',
 				}"
+				@input="handleValueInput"
 			></k-files-field>
 
 			<k-email-field
-				v-else-if="data.type === 'email'"
-				v-model="data.value"
+				v-else-if="linkType === 'email'"
+				:value="linkValue"
+				@input="handleValueInput"
 			/>
 
-			<k-tel-field v-else-if="data.type === 'tel'" v-model="data.value" />
+			<k-tel-field
+				v-else-if="linkType === 'tel'"
+				:value="linkValue"
+				@input="handleValueInput"
+			/>
 
 			<k-box
 				v-else
 				theme="negative"
-				:text="$t('error.type', { type: data.type })"
+				:text="$t('error.type', { type: linkType })"
 			/>
 		</k-column>
 	</k-grid>
@@ -62,15 +70,15 @@ export default {
 		pages: Object,
 		files: Object,
 	},
-	data: function () {
-		return {
-			data: this.value,
-			updating: false,
-		};
-	},
 	computed: {
+		linkType() {
+			return this.value.type;
+		},
+		linkValue() {
+			return this.value.value;
+		},
 		showSelect: function () {
-			return this.types.length > 1;
+			return this.linkTypeOptions.length > 1;
 		},
 		widthPercent: function () {
 			var split = this.width.split("/");
@@ -86,41 +94,20 @@ export default {
 				field: this.showSelect ? (large ? "3/4" : "1/1") : null,
 			};
 		},
-		types: function () {
-			return this.linkTypes.map(
-				function (type) {
-					return {
-						value: type,
-						text: this.$t(type),
-					};
-				}.bind(this)
-			);
+		linkTypeOptions: function () {
+			return this.linkTypes.map((type) => ({
+				value: type,
+				text: this.$t(type),
+			}));
 		},
 	},
 	methods: {
-		inputType: function () {
-			this.data.value = undefined;
+		handleTypeSelect(value) {
+			// Update the type, but also unset the value.
+			this.$emit("input", { type: value, value: undefined });
 		},
-	},
-	watch: {
-		data: {
-			deep: true,
-			handler: function (value) {
-				if (!this.updating) {
-					this.$emit("input", value);
-				}
-			},
-		},
-		value: function (value) {
-			this.updating = true;
-
-			Object.assign(this.data, value);
-
-			this.$nextTick(
-				function () {
-					this.updating = false;
-				}.bind(this)
-			);
+		handleValueInput(value) {
+			this.$emit("input", { value });
 		},
 	},
 };

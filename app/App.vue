@@ -2,28 +2,29 @@
 	<k-field v-bind="$props" class="k-link-field">
 		<k-button
 			slot="options"
-			v-if="hasSettings"
+			v-if="settings"
 			:icon="isMainScreen ? 'cog' : 'cancel'"
-			@click="switchScreen"
+			@click="screen = isMainScreen ? 'options' : 'link'"
 		>
 			{{ isMainScreen ? $t("label.settings") : $t("label.close") }}
 		</k-button>
 
 		<LinkSelect
 			v-if="isMainScreen"
-			v-model="link"
+			:value="validValue"
 			:width="width"
+			:required="required"
 			:endpoints="endpoints"
 			:linkTypes="linkTypes"
 			:pages="pages"
 			:files="files"
-			@input="emitInput"
+			@input="handleInput"
 		></LinkSelect>
 		<LinkSettings
 			v-else
-			v-model="settingsData"
+			:value="validValue"
 			:settings="settings"
-			@input="emitInput"
+			@input="handleInput"
 		></LinkSettings>
 	</k-field>
 </template>
@@ -38,7 +39,7 @@ export default {
 		LinkSettings,
 	},
 	props: {
-		value: Object,
+		value: [Object, String],
 		endpoints: Object,
 
 		width: String,
@@ -54,68 +55,24 @@ export default {
 	},
 	data: function () {
 		return {
-			data: this.value,
 			screen: "link",
 		};
 	},
 	computed: {
-		link: {
-			get: function () {
-				return {
-					type: this.data.type,
-					value: this.data.value,
-				};
-			},
-			set: function (input) {
-				Object.assign(this.data, input);
-			},
-		},
-		settingsData: {
-			get: function () {
-				return {
-					text: this.data.text,
-					popup: this.data.popup,
-					hash: this.data.hash,
-				};
-			},
-			set: function (input) {
-				Object.assign(this.data, input);
-			},
+		validValue() {
+			if (!this.value || !this.linkTypes.includes(this.value.type)) {
+				return { type: this.linkTypes[0] };
+			}
+
+			return { ...this.value };
 		},
 		isMainScreen: function () {
 			return this.screen === "link";
 		},
-		hasSettings: function () {
-			return (
-				this.settings &&
-				typeof this.settings === "object" &&
-				Object.keys(this.settings).length > 0
-			);
-		},
 	},
 	methods: {
-		emitInput: function () {
-			this.$emit("input", this.data);
-		},
-		switchScreen: function () {
-			this.screen = this.isMainScreen ? "options" : "link";
-		},
-		validate: function () {
-			let type = this.data?.type;
-			if (!type || !this.linkTypes.includes(type)) {
-				this.data = {
-					type: this.linkTypes[0] || "url",
-				};
-			}
-		},
-	},
-	created: function () {
-		this.validate();
-	},
-	watch: {
-		value: function (value) {
-			this.data = Object.assign({}, value);
-			this.validate();
+		handleInput(value) {
+			this.$emit("input", { ...this.validValue, ...value });
 		},
 	},
 };

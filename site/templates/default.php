@@ -1,6 +1,5 @@
 <ul>
 	<li><?= site()->link()->toLinkObject()->tag() ?></li>
-	<li><?= site()->content()->url()->toLinkObject()->tag() ?></li>
 	<li>
 		<ul>
 			<?php foreach (site()->structure()->toStructure() as $entry) : ?>

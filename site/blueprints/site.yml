@@ -13,6 +13,9 @@ fields:
       search: false
       image:
         cover: true
+  requiredLink:
+    type: link
+    required: true
   structure:
     fields:
       link: true
