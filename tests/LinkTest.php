@@ -206,9 +206,11 @@ final class LinkTest extends TestCase
 
 	public function testFieldPlainURL()
 	{
-		$field = new Field(null, 'test', 'https://example.com');
-		$link = $field->toLinkObject();
-		$this->assertEquals('https://example.com', $link->url());
+		$field = new Field(null, 'test', 'http://example.com');
+		$field2 = new Field(null, 'test', 'example.com');
+
+		$this->assertEquals('http://example.com', $field->toLinkObject()->url());
+		$this->assertEquals(null, $field2->toLinkObject());
 	}
 
 	public function testFieldEmpty()
