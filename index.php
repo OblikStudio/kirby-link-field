@@ -208,18 +208,19 @@ App::plugin('oblik/link-field', [
 				return null;
 			}
 
+			$value = $field->value();
+
+			if (is_string($value) && strpos($value, 'http') === 0) {
+				return new Link([
+					'type' => 'url',
+					'value' => $value
+				]);
+			}
+
 			$data = $field->yaml();
 
-			if (!is_array($data)) {
-				$data = [];
-			}
-
-			if (empty($data['type'])) {
-				$data['type'] = 'url';
-			}
-
-			if (empty($data['value'])) {
-				$data['value'] = $field->value();
+			if (empty($data['type']) || empty($data['value'])) {
+				return null;
 			}
 
 			return new Link($data);

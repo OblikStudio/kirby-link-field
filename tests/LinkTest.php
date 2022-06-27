@@ -221,4 +221,33 @@ final class LinkTest extends TestCase
 		$this->assertEquals(null, $field->toLinkObject());
 		$this->assertEquals(null, $field2->toLinkObject());
 	}
+
+	public function testStructure()
+	{
+		$field = new Field(null, 'test', Yaml::encode([
+			[
+				'link' => [
+					'type' => 'url',
+					'value' => 'http://example.com'
+				],
+				'link2' => 'http://example.com'
+			]
+		]));
+
+		$entry = $field->toStructure()->get(0);
+		$link = $entry->link()->toLinkObject();
+		$link2 = $entry->link()->toLinkObject();
+
+		$this->assertEquals('http://example.com', $link->url());
+		$this->assertEquals('http://example.com', $link2->url());
+	}
+
+	public function testMalformattedInput()
+	{
+		$field = new Field(null, 'test', 'type: page');
+		$field2 = new Field(null, 'test', "type: page\nvalue: not-existent");
+
+		$this->assertEquals(null, $field->toLinkObject());
+		$this->assertEquals(null, $field2->toLinkObject()->url());
+	}
 }
