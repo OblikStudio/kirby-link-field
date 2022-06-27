@@ -120,6 +120,6 @@ class Link
 
 	public function tag($attr = [])
 	{
-		return Html::a($this->href(), $this->title(), $this->attrData($attr));
+		return Html::a($this->href() ?? '', $this->title(), $this->attrData($attr));
 	}
 }

@@ -161,6 +161,21 @@ final class LinkTest extends TestCase
 		);
 	}
 
+	public function testTagWithInvalidHref()
+	{
+		$link = new Link([
+			'type' => 'page',
+			'value' => 'non-existent'
+		]);
+
+		$html = $link->tag();
+
+		$this->assertEquals(
+			'<a>non-existent</a>',
+			$html
+		);
+	}
+
 	public function testCastToString()
 	{
 		$link = new Link([

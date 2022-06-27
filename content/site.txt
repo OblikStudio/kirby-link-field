@@ -5,6 +5,7 @@ Title: Kirby Link Field
 Link:
 
 type: page
+value: home
 
 ----
 
