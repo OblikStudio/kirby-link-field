@@ -2,7 +2,7 @@
 	"name": "oblik/kirby-link-field",
 	"description": "Kirby 3 field for all types of links.",
 	"license": "MIT",
-	"version": "4.0.0-rc.1",
+	"version": "4.0.0-rc.2",
 	"type": "kirby-plugin",
 	"keywords": [
 		"kirby",
