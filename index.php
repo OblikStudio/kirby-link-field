@@ -101,6 +101,10 @@ App::plugin('oblik/link-field', [
 					return $value;
 				},
 				'settings' => function ($value = null) {
+					if ($value === false) {
+						return null;
+					}
+
 					$config = kirby()->option('oblik.link-field.settings');
 
 					if (is_array($value) && is_array($config)) {
@@ -114,7 +118,7 @@ App::plugin('oblik/link-field', [
 					}
 
 					if (empty($value)) {
-						$value = null;
+						return null;
 					}
 
 					return $value;
