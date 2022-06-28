@@ -43,3 +43,22 @@ Structure:
   link:
     type: tel
     value: "0123456789"
+
+----
+
+Blocks:
+
+[
+    {
+        "content": {
+            "link": {
+                "type": "page",
+                "value": "test/nested",
+                "text": "Block"
+            }
+        },
+        "id": "f8d8b782-4b9a-4ea5-bfd0-ae27cb1a6b40",
+        "isHidden": false,
+        "type": "test"
+    }
+]

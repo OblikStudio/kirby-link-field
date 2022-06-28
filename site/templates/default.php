@@ -7,4 +7,11 @@
 			<?php endforeach ?>
 		</ul>
 	</li>
+	<li>
+		<ul>
+			<?php foreach (site()->blocks()->toBlocks() as $block) : ?>
+				<li><?= $block->link()->toLinkObject()->tag() ?></li>
+			<?php endforeach ?>
+		</ul>
+	</li>
 </ul>

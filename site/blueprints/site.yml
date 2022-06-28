@@ -19,3 +19,11 @@ fields:
   structure:
     fields:
       link: true
+  blocks:
+    pretty: true
+    fieldsets:
+      test:
+        name: Test
+        icon: bolt
+        fields:
+          link: true
