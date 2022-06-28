@@ -1,6 +1,6 @@
 # kirby-link-field
 
-Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash. Original plugin is [this](https://github.com/medienbaecker/kirby-link-field), created by [Thomas Günther](https://github.com/medienbaecker).
+Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash.
 
 The plugin uses the native Kirby fields for pages, files, url, email, and tel:
 
@@ -10,9 +10,14 @@ If used inside a structure field, link fields get a nice preview. Links to pages
 
 ![links in structure field](structure.gif)
 
+## Contributing
+
+- Read the [CONTRIBUTING.md](https://github.com/OblikStudio/kirby-link-field/blob/master/docs/CONTRIBUTING.md) for details
+- Support development by [sponsoring us](https://github.com/sponsors/OblikStudio)
+
 ## Installation
 
-With [Composer](https://packagist.org/packages/oblik/kirby-link-field):
+With Composer from [oblik/kirby-link-field on packagist](https://packagist.org/packages/oblik/kirby-link-field):
 
 ```
 composer require oblik/kirby-link-field
@@ -31,17 +36,19 @@ fields:
     label: Link
 ```
 
-To define what link types you want, use `options`. Possible values are `url`, `page`, `file`, `email`, and `tel`:
+To define what link types you want, use `linkTypes`. Possible values are `url`, `page`, `file`, `email`, and `tel`:
 
 ```yaml
 fields:
   myfield:
     type: link
     label: Link
-    options:
+    linkTypes:
       - page
       - url
 ```
+
+**Note:** This was changed in version 4.0.0 from `options` to `linkTypes` due to an issue with Kirby's internal logic.
 
 By default, you can also specify link text, popup true/false, and hash. You can disable those options or change their appearance by using the `settings` value:
 
@@ -72,8 +79,8 @@ _config/config.php_
 
 ```php
 return [
-    'oblik.linkField' => [
-        'options' => [
+    'oblik.link-field' => [
+        'linkTypes' => [
             'url',
             'page'
         ],
@@ -90,7 +97,7 @@ return [
 
 ```php
 return [
-    'oblik.linkField.settings' => false
+    'oblik.link-field.settings' => false
 ];
 ```
 
@@ -233,3 +240,7 @@ Myfield:
 type: url
 value: https://example.com
 ```
+
+## Support
+
+If you find the plugin useful and would like to receive better support for it, please consider [sponsoring us](https://github.com/sponsors/OblikStudio). Thank you! 🙏
