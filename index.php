@@ -208,10 +208,6 @@ App::plugin('oblik/link-field', [
 	],
 	'fieldMethods' => [
 		'toLinkObject' => function ($field) {
-			if ($field->isEmpty()) {
-				return null;
-			}
-
 			$value = $field->value();
 
 			if (is_string($value) && strpos($value, 'http') === 0) {
@@ -222,10 +218,6 @@ App::plugin('oblik/link-field', [
 			}
 
 			$data = $field->yaml();
-
-			if (empty($data['type']) || empty($data['value'])) {
-				return null;
-			}
 
 			return new Link($data);
 		}

@@ -210,7 +210,7 @@ final class LinkTest extends TestCase
 		$field2 = new Field(null, 'test', 'example.com');
 
 		$this->assertEquals('http://example.com', $field->toLinkObject()->url());
-		$this->assertEquals(null, $field2->toLinkObject());
+		$this->assertEquals(true, $field2->toLinkObject()->isEmpty());
 	}
 
 	public function testFieldEmpty()
@@ -218,8 +218,8 @@ final class LinkTest extends TestCase
 		$field = new Field(null, 'test', null);
 		$field2 = new Field(null, 'test', '');
 
-		$this->assertEquals(null, $field->toLinkObject());
-		$this->assertEquals(null, $field2->toLinkObject());
+		$this->assertEquals(true, $field->toLinkObject()->isEmpty());
+		$this->assertEquals(true, $field2->toLinkObject()->isEmpty());
 	}
 
 	public function testStructure()
@@ -247,7 +247,7 @@ final class LinkTest extends TestCase
 		$field = new Field(null, 'test', 'type: page');
 		$field2 = new Field(null, 'test', "type: page\nvalue: not-existent");
 
-		$this->assertEquals(null, $field->toLinkObject());
+		$this->assertEquals(true, $field->toLinkObject()->isEmpty());
 		$this->assertEquals(null, $field2->toLinkObject()->url());
 	}
 }

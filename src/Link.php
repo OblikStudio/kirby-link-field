@@ -122,4 +122,9 @@ class Link
 	{
 		return Html::a($this->href() ?? '', $this->title(), $this->attrData($attr));
 	}
+
+	public function isEmpty()
+	{
+		return $this->url() === null;
+	}
 }
