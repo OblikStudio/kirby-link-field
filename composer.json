@@ -25,7 +25,6 @@
 		"source": "https://github.com/OblikStudio/kirby-link-field"
 	},
 	"scripts": {
-		"fix": "php-cs-fixer fix",
 		"test": "phpunit"
 	},
 	"require": {

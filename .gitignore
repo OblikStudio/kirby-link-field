@@ -5,7 +5,6 @@
 /site/sessions/
 /vendor/
 
-/.php-cs-fixer.cache
 /.phpunit.result.cache
 
 .lock
