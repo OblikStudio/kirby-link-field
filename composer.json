@@ -2,7 +2,7 @@
 	"name": "oblik/kirby-link-field",
 	"description": "Kirby 3 field for all types of links.",
 	"license": "MIT",
-	"version": "4.0.1",
+	"version": "5.0.0",
 	"type": "kirby-plugin",
 	"keywords": [
 		"kirby",
@@ -16,7 +16,7 @@
 		},
 		{
 			"name": "Hristiyan Dodov",
-			"email": "h.dodov@gmail.com",
+			"email": "hello@dodov.dev",
 			"homepage": "https://dodov.dev/"
 		}
 	],
