@@ -128,15 +128,30 @@ Let's say you have a field with the following values:
 Myfield:
 
 type: page
-value: home
+value: page://hMipdcIiFl53yXdC
 text: My Text
 popup: true
 hash: heading-1
 ```
 
+To get the link object, you should call:
+
 ```php
 $link = $page->myfield()->toLinkObject();
 ```
+
+### `$link->isEmpty()`
+
+**Since version 5.0.0**
+
+Returns `true` or `false` depending on whether the link is empty. Note that it returns `true` not only when the field is empty, but whenever a valid URL can't be generated. If you have a broken link, such as:
+
+```
+type: page
+value: page://broken-uuid
+```
+
+…the link would still be considered empty, because no such page exists.
 
 ### `$link->url()`
 
