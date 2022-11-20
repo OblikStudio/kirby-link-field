@@ -190,7 +190,7 @@ App::plugin('oblik/link-field', [
 
 				// Store just the id of a file or a page.
 				if (is_array($value)) {
-					$data['value'] = $value[0]['id'] ?? null;
+					$data['value'] = $value[0]['uuid'] ?? null;
 				}
 
 				if (is_array($data)) {
