@@ -5,14 +5,14 @@ Title: Kirby Link Field
 Link:
 
 type: page
-value: home
+value: page://hMipdcIiFl53yXdC
 
 ----
 
 Requiredlink:
 
 type: file
-value: test/foo.png
+value: file://jaPSRHpoxcwu37BL
 
 ----
 
@@ -30,11 +30,11 @@ Structure:
 - 
   link:
     type: page
-    value: home
+    value: page://hMipdcIiFl53yXdC
 - 
   link:
     type: file
-    value: test.png
+    value: file://9XJZ8Xdl9p675Fkc
 - 
   link:
     type: email
@@ -53,7 +53,7 @@ Blocks:
         "content": {
             "link": {
                 "type": "page",
-                "value": "test/nested",
+                "value": "page://bu2tSBHWgUfFwY3o",
                 "text": "Block"
             }
         },
