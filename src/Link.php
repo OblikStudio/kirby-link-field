@@ -127,4 +127,9 @@ class Link
 	{
 		return $this->url() === null;
 	}
+	
+	public function isNotEmpty()
+	{
+		return $this->url() !== null;
+	}
 }
