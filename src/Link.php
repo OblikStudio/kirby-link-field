@@ -130,6 +130,6 @@ class Link
 	
 	public function isNotEmpty()
 	{
-		return $this->url() !== null;
+		return !$this->isEmpty();
 	}
 }
