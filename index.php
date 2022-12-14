@@ -204,7 +204,8 @@ App::plugin('oblik/link-field', [
 	'translations' => [
 		'en' => require 'languages/en.php',
 		'de' => require 'languages/de.php',
-		'tr' => require 'languages/tr.php'
+		'tr' => require 'languages/tr.php',
+		'fr' => require 'languages/fr.php'
 	],
 	'fieldMethods' => [
 		'toLinkObject' => function ($field) {
