@@ -9,7 +9,7 @@ return [
   'label.text' => 'Texte',
   'label.popup' => 'Popup',
   'label.fragment' => 'Ancre',
-  'label.settings' => 'Réglages',
+  'label.settings' => 'Options',
   'label.close' => 'Fermer',
   'placeholder.elementid' => 'Identifiant de l\'élément',
   'error.type' => 'Type de champ invalide: {type}'
