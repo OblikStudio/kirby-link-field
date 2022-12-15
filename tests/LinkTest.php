@@ -204,6 +204,33 @@ final class LinkTest extends TestCase
 		$this->assertEquals($data, $link->data());
 	}
 
+	public function testValidFieldMethod()
+	{
+		$data = [
+			'type' => 'url',
+			'value' => 'https://example.com'
+		];
+
+		$field = new Field(null, 'test', Yaml::encode($data));
+		$link = $field->toValidLink();
+
+		$this->assertInstanceOf(Link::class, $link);
+		$this->assertEquals('https://example.com', $link->href());
+	}
+
+	public function testValidFieldMethodEmpty()
+	{
+		$data = [
+			'type' => 'page',
+			'value' => 'page://nonexistent3yXdC'
+		];
+
+		$field = new Field(null, 'test', Yaml::encode($data));
+		$link = $field->toValidLink();
+
+		$this->assertEquals(null, $link);
+	}
+
 	public function testFieldPlainURL()
 	{
 		$field = new Field(null, 'test', 'http://example.com');

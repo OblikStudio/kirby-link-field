@@ -229,6 +229,32 @@ echo $link->popup();    // true
 echo $link->hash();     // heading-1
 ```
 
+### `$field->toValidLink()`
+
+**Since version 5.2.0**
+
+It may be cumbersome to use `$field->toLinkObject()`, then always have to check if the link is valid with `$link->isNotEmpty()`:
+
+```php
+<?php $link = page()->myLinkField()->toLinkObject(); ?>
+<?php if ($link->isNotEmpty()) : ?>
+  <a href="<?= $link->href() ?>">Click here!</a>
+<?php endif ?>
+```
+
+In this case, you can use `$field->toValidLink()`:
+
+```php
+<?php if ($link = page()->myLinkField()->toValidLink()) : ?>
+  <a href="<?= $link->href() ?>">Click here!</a>
+<?php endif ?>
+```
+
+The `toValidLink()` method returns:
+
+- `null` if the link is invalid or empty
+- The link object, when it's a valid, existing link
+
 ## Migrating From URL Fields
 
 If you've previously used a URL field:

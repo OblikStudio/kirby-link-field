@@ -221,6 +221,10 @@ App::plugin('oblik/link-field', [
 			$data = $field->yaml();
 
 			return new Link($data);
+		},
+		'toValidLink' => function ($field) {
+			$linkObject = $field->toLinkObject();
+			return $linkObject->isNotEmpty() ? $linkObject : null;
 		}
 	]
 ]);
