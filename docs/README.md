@@ -153,6 +153,12 @@ value: page://broken-uuid
 
 …the link would still be considered empty, because no such page exists.
 
+### `$link->isNotEmpty()`
+
+**Since version 5.1.0**
+
+The opposite of `$link->isEmpty()`.
+
 ### `$link->url()`
 
 Returns the link URL, including the hash:
