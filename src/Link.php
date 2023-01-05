@@ -85,6 +85,10 @@ class Link
 
 	public function href()
 	{
+		if (!$this->value()) {
+			return null;
+		}
+
 		if ($this->type() === 'tel') {
 			return 'tel:' . preg_replace('![^0-9\+]+!', '', $this->value());
 		} elseif ($this->type() === 'email') {
