@@ -129,9 +129,9 @@ class Link
 
 	public function isEmpty()
 	{
-		return $this->url() === null;
+		return $this->href() === null;
 	}
-	
+
 	public function isNotEmpty()
 	{
 		return !$this->isEmpty();
