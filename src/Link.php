@@ -34,7 +34,7 @@ class Link
 
 	public function __toString()
 	{
-		return $this->href();
+		return (string)$this->href();
 	}
 
 	public function title()
