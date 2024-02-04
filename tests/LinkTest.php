@@ -136,7 +136,7 @@ final class LinkTest extends TestCase
 		]);
 
 		$this->assertEquals(
-			'href="https://example.com" rel="noopener noreferrer" target="_blank"',
+			'href="https://example.com" rel="noreferrer" target="_blank"',
 			$link->attr()
 		);
 	}
@@ -156,7 +156,7 @@ final class LinkTest extends TestCase
 		]);
 
 		$this->assertEquals(
-			'<a href="https://example.com#foo" rel="noopener noreferrer" target="_blank" testattr="test">my text</a>',
+			'<a href="https://example.com#foo" rel="noreferrer" target="_blank" testattr="test">my text</a>',
 			$html
 		);
 	}
