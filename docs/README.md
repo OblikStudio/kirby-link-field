@@ -1,3 +1,5 @@
+**NOTE:** Since Kirby 4, there's a built in [link field](https://getkirby.com/docs/reference/panel/fields/link). Consider using it instead!
+
 # kirby-link-field
 
 Kirby 4 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash.
