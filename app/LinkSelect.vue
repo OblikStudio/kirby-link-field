@@ -113,6 +113,10 @@ export default {
 </script>
 
 <style scoped>
+.k-grid {
+	gap: var(--spacing-8);
+}
+
 :deep(.k-field-header) {
 	display: none; /* hides the Select buttons */
 }
