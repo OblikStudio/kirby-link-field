@@ -1,6 +1,6 @@
 # kirby-link-field
 
-Kirby 3 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash.
+Kirby 4 Field for links of any kind - external, page, file, email, phone. Has settings for text, popup true/false, and hash.
 
 The plugin uses the native Kirby fields for pages, files, url, email, and tel:
 
