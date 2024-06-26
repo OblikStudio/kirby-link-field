@@ -3,9 +3,9 @@ import Preview from "./Preview.vue";
 
 panel.plugin("oblik/link-field", {
 	fields: {
-		link: App,
+		legacyLink: App,
 	},
 	components: {
-		"k-link-field-preview": Preview,
+		"k-legacyLink-field-preview": Preview,
 	},
 });

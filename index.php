@@ -38,7 +38,7 @@ App::plugin('oblik/link-field', [
 		]
 	],
 	'fields' => [
-		'link' => [
+		'legacyLink' => [
 			'mixins' => ['pagepicker', 'filepicker'],
 			'props' => [
 				'value' => function ($input = null) {
