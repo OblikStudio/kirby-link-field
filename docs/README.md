@@ -29,21 +29,23 @@ composer require oblik/kirby-link-field
 
 ## Blueprint
 
-Add a field and set its type to `link`:
+Add a field and set its type to `legacyLink`:
 
 ```yaml
 fields:
   myfield:
-    type: link
+    type: legacyLink
     label: Link
 ```
+
+**Note:** The field type name was changed in version 6.0.1 from `link` to `legacyLink` to prevent a conflict with Kirby 4's built in [link field](https://getkirby.com/docs/reference/panel/fields/link).
 
 To define what link types you want, use `linkTypes`. Possible values are `url`, `page`, `file`, `email`, and `tel`:
 
 ```yaml
 fields:
   myfield:
-    type: link
+    type: legacyLink
     label: Link
     linkTypes:
       - page
@@ -57,7 +59,7 @@ By default, you can also specify link text, popup true/false, and hash. You can 
 ```yaml
 fields:
   myfield:
-    type: link
+    type: legacyLink
     label: Link
     settings:
       popup:
@@ -110,7 +112,7 @@ You could specify settings for the pages/files field. For example:
 ```yml
 fields:
   myfield:
-    type: link
+    type: legacyLink
     pages:
       query: page.siblings
       image:
@@ -272,7 +274,7 @@ fields:
 ```yml
 fields:
   myfield:
-    type: link
+    type: legacyLink
 ```
 
 ...and it'll work. Also, the `toLinkObject()` method can handle both link formats in your TXT files. It's the same if you have:
