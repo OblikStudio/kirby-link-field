@@ -19,28 +19,28 @@ value: file://jaPSRHpoxcwu37BL
 Structure:
 
 - 
-  link:
+  legacylink:
     type: url
     value: https://example.com
 - 
-  link:
+  legacylink:
     type: url
     value: https://example.com/with-text
     text: URL with text!
 - 
-  link:
+  legacylink:
     type: page
     value: page://hMipdcIiFl53yXdC
 - 
-  link:
+  legacylink:
     type: file
     value: file://9XJZ8Xdl9p675Fkc
 - 
-  link:
+  legacylink:
     type: email
     value: john@example.com
 - 
-  link:
+  legacylink:
     type: tel
     value: "0123456789"
 
@@ -51,7 +51,7 @@ Blocks:
 [
     {
         "content": {
-            "link": {
+            "legacylink": {
                 "type": "page",
                 "value": "page://bu2tSBHWgUfFwY3o",
                 "text": "Block"

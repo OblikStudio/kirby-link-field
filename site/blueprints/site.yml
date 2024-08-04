@@ -1,7 +1,7 @@
 preset: page
 fields:
   link:
-    type: link
+    type: legacyLink
     linkTypes:
       - page
       - file
@@ -14,11 +14,11 @@ fields:
       image:
         cover: true
   requiredLink:
-    type: link
+    type: legacyLink
     required: true
   structure:
     fields:
-      link: true
+      legacyLink: true
   blocks:
     pretty: true
     fieldsets:
@@ -26,4 +26,4 @@ fields:
         name: Test
         icon: bolt
         fields:
-          link: true
+          legacyLink: true
